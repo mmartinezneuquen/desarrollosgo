@@ -1,0 +1,358 @@
+<%@   Title="S.G.O. - Alteración de Contrato" %>
+<com:TContent ID="MainContent">		
+	<div style="height: 59px;">
+		<div style="display: inline;">
+			<com:THyperLink 
+				ID="hlkVolver"
+				NavigateUrl="?page=Obra.HomeAdmin" 
+				Text="Obras"
+				CssClass="maintitle volver" />
+	    	<com:TLabel
+		        ID="lblAccion"
+		        Text=" Agregar Items de Convenio"
+		        CssClass="maintitle" />
+		</div>
+		<div id="button-bar-top" style="margin: 15px 0 0 0;">
+			<com:TImageButton
+				ID="btnAceptar"
+				ToolTip="Guardar"
+				Visible = "false"
+				ImageUrl="themes/serviciospublicos/images/invisible.png"
+				CssClass="imgbtn2-guardar"
+				OnClick="btnAceptar_OnClick"
+				Attributes.onclick="return confirm('¿Desea guardar los datos?');"
+				ValidationGroup="Register" />
+			<com:TImageButton
+				ID="btnCancelar"
+				ToolTip="Cancelar"
+				ImageUrl="themes/serviciospublicos/images/invisible.png"
+				CssClass="imgbtn2-cancelar"
+				OnClick="btnCancelar_OnClick" />
+		</div>
+	</div>
+	<div>
+		<fieldset>
+		<span class="label">Obra</span>
+			<com:TLabel 
+				ID="lblObra" 
+				CssClass="labeldata"/>
+			<br />
+			<span class="label">Convenio</span>
+			<com:TLabel 
+				ID="lblContrato" 
+				CssClass="labeldata"/>
+			<br />
+			<span class="label">Monto del Convenio</span>
+			<com:TLabel 
+				ID="lblMontoContrato" 
+				CssClass="labeldata"/>
+			<br />
+	</div>
+	<br />
+	<div>
+	<fieldset>
+	<span class="maintitle2"><com:TLabel 
+				ID="lblTituloItem" 
+				CssClass="maintitle2" Text="Nuevo item del convenio"/></span>
+		<table>
+			<thead>
+				<tr style="background-color:#CCC; font-size:10px;">
+					<th width="250px">Item</th>
+					<th width="100px">Unidad de Medida</th>
+					<th width="100px">Cantidad</th>
+					<th width="100px">Precio Unitario</th>
+					<th width="100px">Precio Total</th>
+					<th width="100px">Incidencia</th>
+					<th width="60px">Item con Subitem</th>
+					<th width="100px">Subitem del Item</th>
+					<th width="100px">Guardar Item</th>
+					<th width="100px">Cancelar Cambios</th>
+				</tr>
+					<th width="250px">
+						<com:TTextBox
+				       		ID="txtItem"
+							MaxLength="50"
+				            AutoTrim="True"
+				       		ToolTip="Ingrese la denominacion del Item" style="width: 250px; font-size: 12px;"/>
+				       	<com:TRequiredFieldValidator
+							ControlToValidate="txtItem"
+							ErrorMessage="Debe ingresar la denominacion del Item."
+							Display="Dynamic"
+							Text="*"
+							ValidationGroup="Register"/>
+					</th>					
+					<th width="100px">
+						<com:TDropDownList 
+							ID="ddlUnidadDeMedida" style="width: 100px; font-size: 12px;">
+								<com:TListItem Value="0" Text="gl."/>
+								<com:TListItem Value="1" Text="ml." />
+								<com:TListItem Value="2" Text="m2." />
+								<com:TListItem Value="3" Text="m3." />
+								<com:TListItem Value="4" Text="lt." />
+								<com:TListItem Value="5" Text="kg." />
+								<com:TListItem Value="6" Text="u." />
+								<com:TListItem Value="7" Text="pza." />
+								<com:TListItem Value="8" Text="cto." />
+								<com:TListItem Value="9" Text="ha." />
+						</com:TDropDownList>
+					</th>
+					<th width="100px">
+						<com:TActiveTextBox
+					   		ID="txtCantidad"
+							MaxLength="15"
+							AutoTrim="True"							
+							AutoPostBack="True"
+							OnTextChanged="Page.txtCantidad_OnTextChanged"
+							ClientSide.OnLoading="Element.show('callback_status')"
+							ClientSide.OnComplete="Element.hide('callback_status')"
+					   		ToolTip="Ingrese el precio unitario"
+							AutoCompleteType="Disabled" 
+							style="width: 100px; font-size: 12px;"/>
+						<com:TRequiredFieldValidator
+							ControlToValidate="txtCantidad"
+							ErrorMessage="Debe ingresar la cantidad de Items."
+							Display="Dynamic"
+							Text="*"
+							ValidationGroup="Register"/>
+					</th>
+					<th width="100px">
+						<com:TActiveTextBox
+					   		ID="txtPrecioUnitario"
+							MaxLength="15"
+							AutoTrim="True"
+							OnTextChanged="Page.txtPrecioUnitario_OnTextChanged"
+							ClientSide.OnLoading="Element.show('callback_status')"
+							ClientSide.OnComplete="Element.hide('callback_status')"
+							AutoPostBack="true"
+					   		ToolTip="Ingrese el precio unitario"
+							AutoCompleteType="Disabled" style="width: 100px; font-size: 12px;"/>
+
+						<com:TRequiredFieldValidator
+							ControlToValidate="txtPrecioUnitario"
+							ErrorMessage="Debe ingresar el precio unitario del Item."
+							Display="Dynamic"
+							Text="*"
+							ValidationGroup="Register"/>
+					</th>
+					<th width="100px">
+						<com:TActiveTextBox
+					   		ID="txtPrecioTotal"
+							MaxLength="15"
+							AutoTrim="True"
+							AutoPostBack="true"
+							Enabled="false"
+					   		ToolTip="Ingrese el precio total"
+							AutoCompleteType="Disabled" style="width: 100px; font-size: 12px;"/>
+						<com:TRequiredFieldValidator
+							ControlToValidate="txtPrecioTotal"
+							ErrorMessage="Debe ingresar el precio total del Item."
+							Display="Dynamic"
+							Text="*"
+							ValidationGroup="Register"/>
+					</th>
+					<th width="100px">
+						<com:TActiveTextBox
+					   		ID="txtIncidencia"
+							MaxLength="15"
+							AutoTrim="True"
+							AutoPostBack="true"
+							Enabled="false"
+							AutoCompleteType="Disabled" style="width: 100px; font-size: 12px;"/>
+						<com:TRequiredFieldValidator
+							ControlToValidate="txtPrecioTotal"
+							ErrorMessage="Debe ingresar el precio total del Item."
+							Display="Dynamic"
+							Text="*"
+							ValidationGroup="Register"/>
+					</th>
+					<th width="60px">
+								<com:TActiveCheckBox 
+						       		ID="chkEsPadre"
+						       		Visible = "true"
+						       		Checked="false"
+						       		OnCheckedChanged="chkEsPadre_OnCheckedChanged"
+						       		ClientSide.OnLoading="Element.show('callback_status')"
+							        ClientSide.OnComplete="Element.hide('callback_status')" />		
+					</th>
+					<th width="100px">
+						<com:TDropDownList 
+							ID="ddlItemPadre"
+							AutoPostBack="true"
+							OnSelectedIndexChanged="selectionChanged"
+							ToolTip="Seleccione"
+					       		PromptValue="0"
+					       		PromptText="Seleccione"
+					       		DataTextField="Item"
+					       		DatavalueField="idContratoItemPadre"/>
+					</th>
+					<th>
+						<com:TImageButton
+							ID="btnAgregarItem"
+							ToolTip="Guardar"
+							ImageUrl="themes/serviciospublicos/images/btn2nuevo.png"
+							CssClass="imgbtn2-guardar"
+							OnClick="btnAgregarItem_OnClick"
+							Attributes.onclick="return confirm('¿Desea guardar los datos?');"
+							ValidationGroup="Register" />
+					</th>
+					<th>
+						<com:TImageButton
+							ID="btnCancelarItem"
+							ToolTip="Cancelar"
+							ImageUrl="themes/serviciospublicos/images/invisible.png"
+							CssClass="imgbtn2-cancelar"
+							OnClick="btnCancelarItem_OnClick" />
+						</th>	
+				<tr>
+				<tr>
+				</tr>
+			</thead>
+		</table>		
+	</div>
+	<br>
+	<fieldset>
+		<com:TActivePanel ID="pnlItemsDelConvenio" Visible="true">
+			<div>	
+		        <table class="TableForm" style="width: 1200px; display:none;">
+					<thead>
+						<tr>
+								<td width="20px" style="padding: 1px 2px;">Nro.</th>
+								<td width="50px" style="padding: 1px 2px;">Periodo</th>
+								<td width="50px" style="padding: 1px 2px;">% Certif.</th>
+								<td width="75px" style="padding: 1px 2px;">$ Certif.</th>
+								<td width="50px" style="padding: 1px 2px;">Ant. Fin.</th>
+								<td width="50px" style="padding: 1px 2px;">Dto. Ant.</th>
+								<td width="50px" style="padding: 1px 2px;">Fdo. Reparo</th>
+								<td width="100px" style="padding: 1px 2px;">Imp. Neto</th>
+								<td width="100px" style="padding: 1px 2px;">Imp. Pagado</th>
+								<td width="100px" style="padding: 1px 2px;">Saldo</th>
+								<td width="50px" style="padding: 1px 2px;">% Acum.</th>
+								<td width="75px" style="padding: 1px 2px;">$ Acum.</th>
+								<td width="50px" style="padding: 1px 2px;">Editar</th>
+								<td width="50px" style="padding: 1px 2px;">Imprimir</th>
+								<td width="50px" style="padding: 1px 2px;">Rendicion de Cuentas</th>
+								<td width="50px" style="padding: 1px 2px;">Documentación Adjunta</th>
+						</tr>
+					</thead>
+				</table>
+	    	</div>	
+		<div>
+			<span class="maintitle2">Items del Convenio</span>							
+			<com:TActiveDataGrid
+				ID="dgItems"
+				CssClass="TableForm"
+				AlternatingItemStyle.BackColor="#EEEEEE"
+				AutoGenerateColumns="false"
+				AllowPaging="false"
+				AllowCustomPaging="false"
+				AllowSorting="false"
+				Width="1000px">
+								<com:TBoundColumn DataField="IdContratoItem" Visible ="false" HeaderText="IdContratoItem" ItemStyle.HorizontalAlign="Center" />
+								<com:TBoundColumn DataField="IdContrato" Visible ="false" HeaderText="IdContrato" />
+								<com:TBoundColumn ItemStyle.Width="60px" DataField="Orden" HeaderText="Orden" ItemStyle.HorizontalAlign="Center"/>
+								<com:TBoundColumn ItemStyle.Width="350px" DataField="Item" HeaderText="Item" ItemStyle.HorizontalAlign="Left"/>
+								<com:TBoundColumn ItemStyle.Width="100px" DataField="UnidadMedida" HeaderText="Unidad de Medida" ItemStyle.HorizontalAlign="Right"/>
+								<com:TBoundColumn ItemStyle.Width="100px" DataField="Cantidad" HeaderText="Cantidad" ItemStyle.HorizontalAlign="Right"/>
+								<com:TBoundColumn ItemStyle.Width="100px" DataField="PrecioUnitario" HeaderText="Precio Unitario" ItemStyle.HorizontalAlign="Right" DataFormatString="#number_format({0},2,',','.')"/>
+								<com:TBoundColumn ItemStyle.Width="100px" DataField="PrecioTotal" HeaderText="Precio Total" ItemStyle.HorizontalAlign="Right" DataFormatString="#number_format({0},2,',','.')"/>								
+								<com:TBoundColumn ItemStyle.Width="100px" DataField="Incidencia" HeaderText="Incidencia" ItemStyle.HorizontalAlign="Right"
+								/>
+
+								<com:TTemplateColumn ID="tcEditarItem" Visible ="true" HeaderText="Editar" ItemStyle.HorizontalAlign="Center" ItemStyle.Width="25px">
+						            <prop:ItemTemplate>
+								       	<com:TActiveHyperLink
+								            ID="hlEditar"
+								            ToolTip="Haga click aquí para editar"
+								            NavigateUrl="?page=Obra.Contrato.Item.Update&idi=<%# $this->Parent->Data['IdContratoItem']%>&idc=<%# $this->Parent->Data['IdContrato']%>&ido=<%# $this->Parent->Data['IdObra']%>">
+								            <img src="themes/serviciospublicos/images/btnEditar.png" border="0"/>
+								    	</com:TActiveHyperLink>
+						            </prop:ItemTemplate>
+				             	</com:TTemplateColumn>
+				             	<com:TTemplateColumn ID="tcBorrarItem" Visible ="false" HeaderText="Borrar" ItemStyle.HorizontalAlign="Center" ItemStyle.Width="25px">
+								            <prop:ItemTemplate>
+								            		<com:TActiveHyperLink
+										            ID="hlEditar"
+										            ToolTip="Haga click aquí para borrar el item del contrato"
+										            NavigateUrl="?page=Obra.Contrato.Item.Update&idc=<%# $this->Parent->Data['IdContrato']%>&ido=<%# $this->Parent->Data['IdObra']%>&borrar=true">
+										            <img src="themes/serviciospublicos/images/btnBorrar.png" border="0"/>
+										    	</com:TActiveHyperLink>
+								            </prop:ItemTemplate>
+						             	</com:TTemplateColumn>	
+			</com:TActiveDataGrid>
+		</div>
+		<div>
+			<table class="TableForm" style="width: 1000px">
+				<tbody>
+					<tr style="background-color:#CCC; ">
+						<td width="60px" style="padding: 1px 2px;text-align:center"><strong>Totales</strong></td>
+						<td width="350px" style="padding: 1px 2px;text-align:right"></td>
+						<td width="100px" style="padding: 1px 2px;text-aling:right"></td>
+						<td width="100px" style="padding: 1px 2px;text-aling:right"></td>
+						<td width="100px" style="padding: 1px 2px;text-aling:right"></td>
+						<td width="100px" style="padding: 1px 2px;text-aling:right"><strong><com:TActiveLabel ID="lblmontoavance" style="padding: 1px 2px;text-aling:right"/></strong></td>
+						<td width="100px" style="padding: 1px 2px;"><strong><com:TActiveLabel ID="lblporcentajeavance" style="padding: 1px 2px;text-aling:right"/></strong></td>			
+						<td width="25px" style="padding: 1px 2px;text-aling:right"><strong><com:TActiveLabel ID="lbl1" /></strong></td>
+						
+					</tr>
+				</tbody>
+			</table>
+		<div>
+						  	<com:TLabel ID="lblItems" Text="No existen items cargados del convenio" />
+						</td>
+					</tr>					
+				</thead>
+				<tbody>
+					
+				</tbody>
+			</table>
+		</div>
+		<div>
+		</div>
+		</com:TActivePanel>
+	</fieldset>
+	<div>	
+			
+			<com:TActivePanel 
+				ID="pnlItemPadre"
+				Visible="false">
+				<span class="label">El Item es una Subcategoria de</span>
+				<com:TDropDownList 
+				ID="ddlItemPadre2"
+				AutoPostBack="true"
+				OnSelectedIndexChanged="selectionChanged"
+				ToolTip="Seleccione"
+		       		PromptValue="0"
+		       		PromptText="Seleccione"
+		       		DataTextField="Item"
+		       		DatavalueField="idContratoItemPadre"/>
+				<br />
+			</com:TActivePanel>	       			    
+		    </br>			
+			<com:TActivePanel 
+				ID="pnlItem">		
+
+					
+			</com:TActivePanel>	
+			<com:TActivePanel 
+				ID="pnlBorrarItem"
+				Visible="false">
+				<com:THyperLink
+					ID="btnBorrarItem"
+		            NavigateUrl="?page=Obra.RefuerzoPartida.Update"
+			        ToolTip="Haga click aquí para agregar un nuevo registro">
+		            <img src="themes/serviciospublicos/images/btnBorrar.png" width="20px" height="20px" border="0"/>
+			    </com:THyperLink>
+				<br />
+			</com:TActivePanel>
+			
+
+
+
+	</div>
+	<com:TValidationSummary
+		ShowMessageBox="false"
+		ShowSummary="true"
+		ValidationGroup="Register"
+		Display="Dynamic"
+		CssClass="Summary"/>
+</com:TContent>

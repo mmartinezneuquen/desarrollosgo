@@ -1,0 +1,289 @@
+<%@   Title="S.G.O. - Rendicion de Cuentas" %>
+<com:TContent ID="MainContent">
+	<div style="height: 59px;">
+		<div style="display: inline;">
+	        <com:THyperLink 
+				ID="hlkVolver"
+				NavigateUrl="?page=Obra.Contrato.Certificacion.HomeAdmin" 
+				Text="Certificaciones de Contrato"
+				CssClass="maintitle volver" />
+	    	<com:TLabel
+		        ID="lblAccion"
+		        Text=" Agregar Rendición de Cuentas"
+		        CssClass="maintitle" />
+		</div>
+		<div id="button-bar-top" style="margin: 15px 0 0 0;">
+			<com:TImageButton
+				ID="btnAceptar"
+				ToolTip="Guardar"
+				Visible = "false"
+				ImageUrl="themes/serviciospublicos/images/invisible.png"
+				CssClass="imgbtn2-guardar"
+				OnClick="btnAceptar_OnClick"
+				Attributes.onclick="return confirm('¿Desea guardar los datos?');"
+				ValidationGroup="Register" />
+			
+			<com:TImageButton
+				ID="btnCancelar"
+				ToolTip="Cancelar"
+				ImageUrl="themes/serviciospublicos/images/invisible.png"
+				CssClass="imgbtn2-cancelar"
+				OnClick="btnCancelar_OnClick" />
+		</div>
+	</div>
+	<div>
+			<table>
+					<thead>
+						<tr style="background-color:#CCC; font-size:10px;">						
+							<th width="150px">Empresa</th>
+							<th width="65px">Nro de CUIT/CUIL</th>
+							<th width="65px">Factura Nro.</th>
+							<th width="65px" >Fecha de Emisión</th>
+							<th width="100px">Concepto - Certificado Nro</th>
+							<th width="200px" >Orden de Pago o Cheque Nro.</th>
+							<th width="44px" >Recibo Nro.</th>
+							<th width="65px" >Fecha de Cancelación</th>							
+							<th width="65px" >Monto $</th>
+							<th width="150px" >Observaciones</th>
+							<th width="65px">Guardar Cuenta</th>
+							<th width="65px">Cancelar Cambios</th>
+						</tr>
+						<tr style="background-color:#CCC;">
+							<th width="100px"><com:TTextBox
+					       		ID="txtEmpresa" MaxLength="255" AutoTrim="True" ToolTip="Ingrese la el nombre de la Empresa" style="width: 150px; font-size: 10px;"/>
+							<com:TRequiredFieldValidator
+								ControlToValidate="txtEmpresa"
+								ErrorMessage="Debe ingresar el nombre de la empresa."
+								Display="Dynamic"
+								Text="*"
+								ValidationGroup="Register"/>
+							</th>
+							<th width="65px"><com:TTextBox
+					       		ID="txtCuit" MaxLength="13" AutoTrim="True" ToolTip="Ingrese el CUIT del proveedor" style="width: 65px; font-size: 10px;"/>							
+							<com:TRequiredFieldValidator
+								ControlToValidate="txtCuit"
+								ErrorMessage="Debe ingresar un CUIT de proveedor."
+								Display="Dynamic"
+								Text="*"
+								ValidationGroup="Register"/>
+							<com:TRegularExpressionValidator
+							    ValidationGroup="Register"
+							    ControlToValidate="txtCuit"
+							    RegularExpression="^(20|23|24|27|30|33)-[0-9]{8}-[0-9]$"
+							    Text="*"
+							    Display="Dynamic"
+							    ErrorMessage="Ingrese un CUIT válido (00-00000000-0)." />
+							</th>
+							<th width="65px"><com:TTextBox
+					       		ID="txtFacturaNro" MaxLength="255" AutoTrim="True" ToolTip="Ingrese el número de la Factura" style="width: 65px; font-size: 10px;"/>
+							<com:TRequiredFieldValidator
+								ControlToValidate="txtFacturaNro"
+								ErrorMessage="Debe ingresar el número de la Factura."
+								Display="Dynamic"
+								Text="*"
+								ValidationGroup="Register"/>
+							</th>
+							<th width="55px"><com:TDatePicker
+								ID="dtpFechaEmision"
+								DateFormat="dd/MM/yyyy"
+								Culture="es" style="width: 55px; font-size: 10px;"/>
+							<com:TRequiredFieldValidator
+								ControlToValidate="dtpFechaEmision"
+								ErrorMessage="Debe ingresar la fecha de emisión."
+								Display="Dynamic"
+								Text="*"
+								ValidationGroup="Register"/>
+							<com:TDataTypeValidator
+							    ValidationGroup="Register"
+							    ControlToValidate="dtpFechaEmision"
+							    DataType="Date"
+							    DateFormat="dd/MM/yyyy"
+							    Text="*"
+							    Display="Dynamic"
+							    ErrorMessage="El formato de fecha es inválido (dd/mm/yyyy)." />
+							</th>
+							<th width="65px"><com:TTextBox
+					       		ID="txtConcepto" MaxLength="255" AutoTrim="True" ToolTip="Ingrese la el Concepto o Nro de Certificado" style="width: 100px; font-size: 10px;"/>
+					       	<com:TRequiredFieldValidator
+								ControlToValidate="txtConcepto"
+								ErrorMessage="Debe ingresar el Concepto o Nro de Certificado."
+								Display="Dynamic"
+								Text="*"
+								ValidationGroup="Register"/>
+							</th>
+							<th><com:TTextBox
+					       		ID="txtOrdenPago" MaxLength="255" AutoTrim="True"
+					       		ToolTip="Ingrese el Orden de Pago o Cheque Nro." style="width: 200px; font-size: 10px;"/>
+					       	<com:TRequiredFieldValidator
+								ControlToValidate="txtOrdenPago"
+								ErrorMessage="Debe ingresar el Orden de Pago o Cheque Nro."
+								Display="Dynamic"
+								Text="*"
+								ValidationGroup="Register"/>
+							</th>
+							<th width="65px"><com:TTextBox
+					       		ID="txtReciboNro" MaxLength="255" AutoTrim="True" ToolTip="Ingrese el número del Recibo" style="width: 44px; font-size: 10px;"/>
+							</th>
+							<th width="65px"><com:TDatePicker
+								ID="dtpFechaCancelacion" DateFormat="dd/MM/yyyy" Culture="es" style="width: 65px; font-size: 10px;"/>
+							<com:TRequiredFieldValidator
+								ControlToValidate="dtpFechaCancelacion"
+								ErrorMessage="Debe ingresar la fecha de cancelación."
+								Display="Dynamic"
+								Text="*"
+								ValidationGroup="Register"/>
+							<com:TDataTypeValidator
+							    ValidationGroup="Register"
+							    ControlToValidate="dtpFechaCancelacion"
+							    DataType="Date"
+							    DateFormat="dd/MM/yyyy"
+							    Text="*"
+							    Display="Dynamic"
+							    ErrorMessage="El formato de fecha es inválido (dd/mm/yyyy)." />
+							</th>							
+							<th width="65px"><com:TTextBox
+						   		ID="txtMonto" MaxLength="15" AutoTrim="True" ToolTip="Ingrese el monto de contrato" AutoCompleteType="Disabled" style="width: 65px; font-size: 10px;"/>
+						   	<com:TRequiredFieldValidator
+								ControlToValidate="txtMonto"
+								ErrorMessage="Debe ingresar el monto."
+								Display="Dynamic"
+								Text="*"
+								ValidationGroup="Register"/>
+							<com:TDataTypeValidator
+								ControlToValidate="txtMonto"
+								ErrorMessage="Debe ingresar un número válido."
+								DataType="Float"
+								Display="Dynamic"
+								Text="*"
+								ValidationGroup="Register"/>
+							</th>
+							<th width="150px"><com:TTextBox
+					       		ID="txtObservacion" MaxLength="255" AutoTrim="True" ToolTip="Ingrese la observacion. "  style="width: 150px; font-size: 10px;"/>
+							</th>
+							<th>
+								<com:TImageButton
+									ID="btnAgregarRendicion"
+									ToolTip="Guardar"
+									ImageUrl="themes/serviciospublicos/images/btn2nuevo.png"
+									CssClass="imgbtn2-guardar"
+									OnClick="btnAgregarRendicion_OnClick"
+									Attributes.onclick="return confirm('¿Desea guardar la cuenta?');"
+									ValidationGroup="Register" />
+							</th>
+							<th>
+								<com:TImageButton
+									ID="btnCancelarItem"
+									ToolTip="Cancelar"
+									ImageUrl="themes/serviciospublicos/images/invisible.png"
+									CssClass="imgbtn2-cancelar"
+									OnClick="btnCancelarItem_OnClick" />
+							</th>								
+
+						</tr>
+					</thead>
+					
+			</table>
+							
+	      
+			<com:TActivePanel 
+				ID="pnlBorrarCuenta"
+				Visible="false">
+				<com:THyperLink
+					ID="btnBorrarCuenta"
+		            NavigateUrl="?page=Obra.RefuerzoPartida.Update"
+			        ToolTip="Haga click aquí para agregar un nuevo registro">
+		            <img src="themes/serviciospublicos/images/btnBorrar.png" width="20px" height="20px" border="0"/>
+			    </com:THyperLink>
+				<br />
+			</com:TActivePanel>
+	<com:TActivePanel 
+				ID="pnlCuentasDeLaCertificacion"
+				Visible="true">
+				<br />
+				<table>
+						<thead>
+							<tr>
+								<td valign="top">
+									<span class="maintitle2">Cuentas de la Certificacion</span>							
+									<com:TActiveDataGrid
+									    ID="dgCuentas" CssClass="TableForm" AlternatingItemStyle.BackColor="#EEEEEE"
+									    AutoGenerateColumns="false" AllowPaging="false"
+										AllowCustomPaging="false" AllowSorting="true" OnSortCommand="sortDataGrid">
+										<com:TBoundColumn DataField="IdRendicionCuentas" Visible ="false" HeaderText="IdContratoItem" ItemStyle.HorizontalAlign="Center" />
+										<com:TBoundColumn DataField="IdCertificacion" Visible ="false" HeaderText="IdContrato" />
+										<com:TBoundColumn ItemStyle.Width="30px" DataField="Estado" HeaderText="Estado" />
+										<com:TBoundColumn ItemStyle.Width="30px" DataField="Orden" HeaderText="Nº de órden" />	
+										<com:TBoundColumn ItemStyle.Width="150px" DataField="Empresa" HeaderText="Empresa" />
+										<com:TBoundColumn ItemStyle.Width="65px" DataField="Cuit" HeaderText="Nro. de Cuit/Cuil" />
+										<com:TBoundColumn ItemStyle.Width="65px" DataField="Factura" HeaderText="Factura Nro." />
+										<com:TBoundColumn ItemStyle.Width="65px" DataField="FechaEmision" HeaderText="Fecha de Emisión" />
+										<com:TBoundColumn ItemStyle.Width="100px" DataField="Concepto" HeaderText="Concepto- Certificado Nro" />
+										<com:TBoundColumn ItemStyle.Width="200px" DataField="OrdenDePago" HeaderText="Orden de Pago o Cheque Nro." />
+										<com:TBoundColumn ItemStyle.Width="40px" DataField="Recibo" HeaderText="Recibo Nro." />
+										<com:TBoundColumn ItemStyle.Width="65px" DataField="FechaCancelacion" HeaderText="Fecha de Cancelación" />
+										
+										<com:TBoundColumn ItemStyle.Width="65px" DataField="Monto" HeaderText="Monto $" />
+										<com:TBoundColumn ItemStyle.Width="150px" DataField="Observaciones" HeaderText="Observaciones" />
+										
+										<com:TTemplateColumn ID="tcEditarCuenta2" Visible ="true" HeaderText="Editar" ItemStyle.HorizontalAlign="Center" ItemStyle.Width="25px">
+								            <prop:ItemTemplate>
+										       	<com:TActiveHyperLink
+										            ID="hlEditar"
+										            ToolTip="Haga click aquí para editar"
+										            NavigateUrl="?page=Obra.Contrato.Certificacion.RendicionCuentas.Update&id=<%# $this->Parent->Data['IdCertificacion']%>&idc=<%# $this->Parent->Data['IdRendicionCuentas']%>">
+										            <img src="themes/serviciospublicos/images/btnEditar.png" border="0"/>
+										    	</com:TActiveHyperLink>
+								            </prop:ItemTemplate>
+						             	</com:TTemplateColumn>				             	
+						             	<com:TTemplateColumn ID="tcBorrarCuenta" Visible ="true" HeaderText="Borrar" ItemStyle.HorizontalAlign="Center" ItemStyle.Width="25px">
+								            <prop:ItemTemplate>
+								            		<com:TActiveHyperLink
+										            ID="hlEditar"
+										            ToolTip="Haga click aquí para borrar la rendicion de cuenta seleccionada"
+										            NavigateUrl="?page=Obra.Contrato.Certificacion.RendicionCuentas.Update&id=<%# $this->Parent->Data['IdCertificacion']%>&idc=<%# $this->Parent->Data['IdRendicionCuentas']%>&borrar=true">
+										            <img src="themes/serviciospublicos/images/btnBorrar.png" border="0"/>
+										    	</com:TActiveHyperLink>
+								            </prop:ItemTemplate>
+						             	</com:TTemplateColumn>				
+						             	<com:TTemplateColumn ID="tcAprobarCuenta" Visible ="true" HeaderText="Aprobar" ItemStyle.HorizontalAlign="Center" ItemStyle.Width="25px">
+								            <prop:ItemTemplate>
+								            		<com:TActiveHyperLink
+										            ID="hlEditar"
+										            ToolTip="Haga click aquí para aprobar la rendicion de cuenta seleccionada"
+										            NavigateUrl="?page=Obra.Contrato.Certificacion.RendicionCuentas.Update&id=<%# $this->Parent->Data['IdCertificacion']%>&idc=<%# $this->Parent->Data['IdRendicionCuentas']%>&aprobado=true">
+										            <img src="themes/serviciospublicos/images/btnAprobado.png" border="0"/>
+										    	</com:TActiveHyperLink>
+								            </prop:ItemTemplate>
+						             	</com:TTemplateColumn>
+						             	<com:TTemplateColumn ID="tcRechazarCuenta" Visible ="true" HeaderText="Rechazar" ItemStyle.HorizontalAlign="Center" ItemStyle.Width="25px">
+								            <prop:ItemTemplate>
+								            		<com:TActiveHyperLink
+										            ID="hlEditar"
+										            ToolTip="Haga click aquí para rechazado la rendicion de cuenta seleccionada"
+										            NavigateUrl="?page=Obra.Contrato.Certificacion.RendicionCuentas.Update&id=<%# $this->Parent->Data['IdCertificacion']%>&idc=<%# $this->Parent->Data['IdRendicionCuentas']%>&rechazado=true">
+										            <img src="themes/serviciospublicos/images/btnRechazado.png" border="0"/>
+										    	</com:TActiveHyperLink>
+								            </prop:ItemTemplate>
+						             	</com:TTemplateColumn>		
+								  	</com:TActiveDataGrid>
+								  	<com:TLabel ID="lblCuentas" Text="No existen cuentas cargadas en esta certificación" />
+								</td>
+							<tr>
+						</thead>
+						<tbody>
+								<tr style="background-color:#CCC; font-size:10px;">
+									<td><strong>TOTALES: <com:TActiveLabel /><com:TLabel ID="lblTotal" Text="$" /></strong></td>
+									
+															
+								</tr>
+						</tbody>	
+				</table>
+			</com:TActivePanel>
+
+	<com:TValidationSummary
+		ShowMessageBox="false"
+		ShowSummary="true"
+		ValidationGroup="Register"
+		Display="Dynamic"
+		CssClass="Summary"/>
+</com:TContent>

@@ -1,0 +1,332 @@
+<%@   Title="S.G.O. - Certificación" %>
+
+<com:TContent ID="MainContent">
+
+	<div style="height: 59px;">
+		<div style="display: inline;">
+			<com:THyperLink 
+				ID="hlkVolver"
+				NavigateUrl="?page=Obra.Contrato.Certificacion.HomeAdmin" 
+				Text="Certificaciones de Contrato"
+				CssClass="maintitle volver" />			
+	    	<com:TLabel
+		        ID="lblAccion"
+		        Text="Documentación"
+		        CssClass="maintitle" />
+		</div>
+		<div id="button-bar-top" style="margin: 15px 0 0 0;">
+			<com:TImageButton
+				ID="btnAceptar"
+				ToolTip="Guardar"
+				ImageUrl="themes/serviciospublicos/images/invisible.png"
+				CssClass="imgbtn2-guardar"
+				OnClick="btnAceptar_OnClick"
+				Attributes.onclick="return confirm('¿Desea guardar los datos?');"
+				ValidationGroup="Register" />
+			<com:TImageButton
+				ID="btnCancelar"
+				ToolTip="Cancelar"
+				ImageUrl="themes/serviciospublicos/images/invisible.png"
+				CssClass="imgbtn2-cancelar"
+				OnClick="btnCancelar_OnClick" />
+		</div>
+	</div>
+	<div>
+		<fieldset>
+
+			<com:TActivePanel ID="pnlDatos">
+				<div>	
+			        <table class="TableForm">
+						<thead>
+							<tr>
+								<th width="510px" style="padding: 1px 2px;">Documento</th>
+								<th width="150px" style="padding: 1px 2px;">Estado</th>
+								<th width="100px" style="padding: 1px 2px;">Documento</th>
+								<th width="340px" style="padding: 1px 2px;">Acción</th>
+							</tr>
+						</thead>
+					</table>
+			    </div>
+			    <!-- <form id="clearform"></form> -->
+			    <div style="overflow-y: auto;max-height:500px;">
+					<com:TActiveDataGrid
+					    ID="dgDatos"
+			            CssClass="TableForm2"
+					    AlternatingItemStyle.BackColor="#EEEEEE"
+					    AutoGenerateColumns="false"
+			            AllowPaging="false"
+			            AllowCustomPaging="false"
+			            AllowSorting="false"
+			            ShowHeader="false"
+			            ><!--  Width="1200px" -->
+						<com:TBoundColumn DataField="Nombre" ItemStyle.Width="510px"/> <!-- ItemStyle.Width="50px" -->
+						<com:TTemplateColumn ID="tcEstado" ItemStyle.Width="150px" ItemStyle.Height="25px">
+						    <prop:ItemTemplate>
+
+						    	<%# $this->Parent->Data['NombreEstado'] %> <br>
+						    	<%# $this->Parent->Data['NombreEstado'] == 'Desaprobado' ? "Motivo: ".$this->Parent->Data['Motivo'] : '' %>
+					       	
+					       	</prop:ItemTemplate> 
+						</com:TTemplateColumn>
+
+						<com:TTemplateColumn ID="tcVer" ItemStyle.Width="100px" ItemStyle.Height="25px">
+						    <prop:ItemTemplate>
+
+								<com:TConditional Condition="!in_array($this->Parent->Data['NombreEstado'], ['No presentado','Desaprobado'])">
+								    <prop:TrueTemplate>
+								        <a href="output/documentos/<%# $this->Parent->Data['Archivo'] %>" target="_blank">Ver</a>
+								    </prop:TrueTemplate>
+								</com:TConditional>
+						    
+						    </prop:ItemTemplate>
+						</com:TTemplateColumn>
+
+						<com:TTemplateColumn ID="tcBotones" ItemStyle.Width="340px" ItemStyle.Height="25px">
+						    <prop:ItemTemplate> <!-- //>> Encontrar una manera de condicionar más de raíz -->
+
+						    	<!-- //>> Estos campos están agregados para persistir estos datos desde aquí mismo
+						    	para no tener que acceder a la base para consultarlos al momento de guardar la revisión -->
+						    	<com:THiddenField ID="hdnCurrentDocumentFile" Value="<%# $this->Parent->Data['Archivo'] %>" />
+						    	<com:THiddenField ID="hdnIdDocumento" Value="<%# $this->Parent->Data['IdDocumento'] %>" />
+								
+								<com:TActivePanel ID="pnlSubir"
+									CssClass=<%# $this->Parent->Data['HabilitaBoton'] == 1  ? "subir" : "invalid" %> 
+									>
+							      
+									<input type='file' id='fileInput<%# $this->Parent->Data['IdDocumento'] %>' n='<%# $this->Parent->Data['IdDocumento'] %>' />
+									<a class='btnUpload' href='javascript:void(0);' onclick='uploadDocument(<%# $this->Parent->Data['IdDocumento'] %>)'>Subir</a>
+						    		<img src="assets/img/frmwrk/FileUploadIndicator.gif" alt="" class="fileUploadStatusIcon"
+						    			 id="file<%# $this->Parent->Data['IdDocumento'] %>_Busy" style="display: none;">
+						    		<img src="assets/img/frmwrk/FileUploadComplete.png" alt="" class="fileUploadStatusIcon"
+						    			 id="file<%# $this->Parent->Data['IdDocumento'] %>_Success" style="display: none;">
+						    		<img src="assets/img/frmwrk/FileUploadError.png" alt="" class="fileUploadStatusIcon"
+						    			 id="file<%# $this->Parent->Data['IdDocumento'] %>_Error" style="display: none;">
+						    		<p class="errmsg" id="errormsgupload<%# $this->Parent->Data['IdDocumento'] %>"></p>
+
+						    		<div id="filenames<%# $this->Parent->Data['IdDocumento'] %>">
+							    		<com:THiddenField ID="hdnDocumentFile" Value="" />
+						    			<com:THiddenField ID="hdnRejectedDocumentFiles" Value="" />
+						    		</div>
+
+						    	</com:TActivePanel>
+
+								<com:TActivePanel ID="pnlAprobar"
+									CssClass=<%# $this->Parent->Data['HabilitaBoton'] == 2  ? "aprobar" : "invalid" %> 
+									>
+
+						    		<div id="aprueba<%# $this->Parent->Data['IdDocumento'] %>">
+								    	<a href="javascript:void(0)" style="display: inline-block" 
+								    	   onclick="aprobar(<%# $this->Parent->Data['IdDocumento'] %>)">Aprobar</a>
+										<a href="javascript:void(0)" style="display: inline-block"
+										   onclick="motivoDesaprobacion(<%# $this->Parent->Data['IdDocumento'] %>)">Desaprobar</a>
+						    		</div>
+
+						    		<div id="motivo<%# $this->Parent->Data['IdDocumento'] %>" style="display:none;">
+						    			<com:TActiveTextBox
+							    			ID="tbMotivo"
+							    			MaxLength="150" 
+							    			ToolTip="Ingrese el motivo de la desaprobación" />
+
+							    		<a href="javascript:void(0)" style="display: inline-block;"
+										   onclick="desaprobar(<%# $this->Parent->Data['IdDocumento'] %>)">OK</a>
+
+										<p class="errmsg" id="errormsgdesap<%# $this->Parent->Data['IdDocumento'] %>"></p>
+
+						    		</div>
+
+						    		<a id="cancelarAprobacion<%# $this->Parent->Data['IdDocumento'] %>" 
+						    		   href="javascript:void(0)" style="display: none;"
+									   onclick="cancelarAprobacion(<%# $this->Parent->Data['IdDocumento'] %>)">Cancelar</a>
+
+									<div id="aprobacion<%# $this->Parent->Data['IdDocumento'] %>">
+										<label id="lblAprobado<%# $this->Parent->Data['IdDocumento'] %>"></label>
+										<com:THiddenField ID="hdnAprobado" Value="" />
+									</div>
+
+					    		</com:TActivePanel>
+						    	
+						        <com:THiddenField ID="hdnIdContratoItem" Value="<%# $this->Parent->Data['Nombre'] %>" />
+						        <com:THiddenField ID="hdnIdCertificacionItem" Value="<%# $this->Parent->Data['IdCertificacion']%>"/>
+
+						    </prop:ItemTemplate> <!-- <%# %> -->
+						</com:TTemplateColumn>
+
+			        </com:TActiveDataGrid>    
+			    </div>
+
+			</com:TActivePanel>
+
+		</fieldset>
+
+		<com:TActiveHiddenField ID="cambios" />
+
+	</div>
+
+
+	<!--  ESTILO DEL FORMULARIO EMERGENTE QUE NO SE USÓ 
+	<style> 
+
+	#uploadDocumentScreen {
+		position: fixed;
+	    width: 50%;
+	    height: 200px;
+	    top: 100px;
+	    left: 25%;
+	    background-color: #FFF;
+	    padding: 20px;
+	    z-index: 1000;
+	    box-shadow: 0px 0px 20px 1000px rgba(0,0,0,0.5);
+	}
+
+	#uploadDocumentScreen .btnClose {
+		float: right;
+		user-select: none;
+		cursor: pointer;
+	}
+
+	#uploadDocumentScreen .btnClose:hover {
+		color: #555;
+	}
+
+	#uploadDocumentScreen .title {
+		float: left;
+		margin-top: 0;
+	}
+
+	#uploadDocumentScreen .header {
+		overflow: auto;
+	}
+
+	</style>
+	-->
+	<style>
+		.errmsg {
+			color: red;
+			font-style: italic;
+		}
+
+		.fileUploadStatusIcon {
+			margin: 5px 0px -5px 10px;
+		}
+
+	</style>
+
+	<script>
+
+	function uploadDocument(documento)
+	{
+		var $fileInput = jQuery("#fileInput"+documento);
+		var formData = new FormData();
+
+		var iconsId = "file" + documento;
+
+		jQuery("[id^="+iconsId+"]").hide();
+		jQuery("#"+iconsId + "_Busy").show();
+
+        formData.append("n", $fileInput.attr("n"));
+        formData.append("cert", "<%= $this->Request['id'] %>");
+        formData.append("file", $fileInput[0].files[0]);
+
+        //nombre de archivo para el back-end
+        var $successFile = jQuery("#filenames" + documento + " [id*=hdnDocumentFile]");
+        var $rejectedFiles = jQuery("#filenames" + documento + " [id*=hdnRejectedDocumentFiles]");
+
+        jQuery.ajax({
+            url: "?page=UploadFile",
+            type: "post",
+            dataType: "json",
+            data: formData,
+            cache: false,
+            contentType: false,
+     		processData: false,
+     		success: function(res)
+     		{
+	            //icono
+				var iconResultId = iconsId + "_" + (res.success ? "Success" : "Error");
+	            jQuery("[id^="+iconsId+"]").hide();
+	            jQuery("#"+iconResultId).show();
+
+	            //mensaje de error
+	            jQuery("#errormsgupload"+documento).html(res.success ? "" : res.message);
+
+
+	            if ($successFile.val()) 
+	            	$rejectedFiles.val(($rejectedFiles.val() ? $rejectedFiles.val() + ";" : "") + $successFile.val());
+
+	            $successFile.val(res.filename);
+
+	        },
+	        error: function(err)
+	        {
+	        	jQuery("#errormsgupload"+documento).html("Error Desconocido");
+
+	        	if ($successFile.val()) 
+	            	$rejectedFiles.val($rejectedFiles.val() + ";" + $successFile.val());
+
+	            $successFile.val("");
+        	}
+		});
+	}
+
+
+	function aprobar(documento)
+	{
+		jQuery("#lblAprobado"+documento).html("aprobado");
+		jQuery("#aprobacion"+documento+" [id*=hdnAprobado]").val(jQuery("#lblAprobado"+documento).html());
+		jQuery("#motivo"+documento).hide();
+		jQuery("#aprueba"+documento).hide();
+		jQuery("#cancelarAprobacion"+documento).show();
+
+	}
+
+	function desaprobar(documento)
+	{
+		if (jQuery("#motivo"+documento+" [id*=tbMotivo]").val()) 
+		{
+			jQuery("#lblAprobado"+documento).html("desaprobado");
+			jQuery("#aprobacion"+documento+" [id*=hdnAprobado]").val(jQuery("#lblAprobado"+documento).html());
+			jQuery("#motivo"+documento).hide();
+			jQuery("#aprueba"+documento).hide();
+			jQuery("#cancelarAprobacion"+documento).show();	
+			jQuery("#errormsgdesap"+documento).html("");		
+		}
+		else
+		{
+			jQuery("#errormsgdesap"+documento).html("Debe ingresar un motivo");
+		}
+	}
+
+	function motivoDesaprobacion(documento)
+	{
+		jQuery("#motivo"+documento+" [id*=tbMotivo]").val("");
+		jQuery("#errormsgdesap"+documento).html("");
+		jQuery("#motivo"+documento).show();
+	}
+
+	function cancelarAprobacion(documento)
+	{
+		jQuery("#lblAprobado"+documento).html("");
+		jQuery("#aprobacion"+documento+" [id*=hdnAprobado]").val(jQuery("#lblAprobado"+documento).html());
+		jQuery("#aprueba"+documento).show();
+		jQuery("#cancelarAprobacion"+documento).hide();
+	}
+
+	
+
+	function deleteInvalidPradoDivs()
+	{
+		jQuery(".invalid").remove();
+	}
+
+
+	jQuery( function() {
+
+		// LOAD
+		deleteInvalidPradoDivs();
+		//alert('<%= $this->Request["id"] %>');
+
+	});
+
+	</script>
+
+</com:TContent>

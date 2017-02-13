@@ -1,0 +1,11 @@
+a:2:{s:9:"FechaHora";s:14:"20170208042855";s:7:"Usuario";s:8:"30973970";}
+a:2:{s:9:"FechaHora";s:14:"20170208063906";s:7:"Usuario";s:8:"30973970";}
+a:3:{s:9:"FechaHora";s:14:"20170208063914";s:7:"Usuario";s:8:"30973970";s:4:"page";s:14:"Obra.HomeAdmin";}
+a:3:{s:9:"FechaHora";s:14:"20170208063936";s:7:"Usuario";s:8:"30973970";s:4:"page";s:4:"Home";}
+a:3:{s:9:"FechaHora";s:14:"20170208063941";s:7:"Usuario";b:0;s:4:"page";s:5:"Login";}
+a:3:{s:9:"FechaHora";s:14:"20170208063953";s:7:"Usuario";s:8:"30973970";s:4:"page";s:15:"Compromiso.Home";}
+a:3:{s:9:"FechaHora";s:14:"20170208063956";s:7:"Usuario";s:8:"30973970";s:4:"page";s:9:"Obra.Home";}
+a:3:{s:9:"FechaHora";s:14:"20170208063958";s:7:"Usuario";s:8:"30973970";s:4:"page";s:14:"Obra.HomeAdmin";}
+a:4:{s:9:"FechaHora";s:14:"20170208064002";s:7:"Usuario";s:8:"30973970";s:4:"page";s:16:"Obra.UpdateAdmin";s:2:"id";s:3:"901";}
+a:3:{s:9:"FechaHora";s:14:"20170208064005";s:7:"Usuario";s:8:"30973970";s:4:"page";s:14:"Obra.HomeAdmin";}
+a:5:{s:9:"FechaHora";s:14:"20170208064021";s:7:"Usuario";s:8:"30973970";s:4:"page";s:37:"Obra.Contrato.Certificacion.HomeAdmin";s:3:"idc";s:3:"829";s:3:"ido";s:3:"901";}

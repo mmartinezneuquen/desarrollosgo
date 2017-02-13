@@ -91,17 +91,18 @@ class ObraAdministracionPeer
 				  o.Expediente,
 				  o.CreditoPresupuestarioAprobado,
 				  ifnull((select sum(Importe) from refuerzopartida where IdObra=o.IdObra) ,0) as RefuerzoPartida,
-				  o.CantidadBeneficiarios,
-				  o.PresupuestoOficial,
 				  date_format(o.FechaPresupuestoOficial,'%d/%m/%Y') as FechaPresupuestoOficial,
 				  eo.Descripcion as Estado,
-				  contrato.Monto as Monto,
-				  ifnull((select sum(pc.importe) from certificacion ce inner join contrato co on ce.IdContrato=co.IdContrato inner join pagocertificacion pc on pc.IdCertificacion = ce.IdCertificacion where co.IdObra=o.IdObra),0) as Pagado,
+				  concat('$ ',  FORMAT(contrato.Monto,2,'de_DE')) as Monto,
+				  concat('$',ifnull((select FORMAT(sum(pc.importe),2,'de_DE') from certificacion ce inner join contrato co on ce.IdContrato=co.IdContrato inner join pagocertificacion pc on pc.IdCertificacion = ce.IdCertificacion where co.IdObra=o.IdObra),0)) as Pagado,
 				  ifnull((select sum(montoavance) from certificacion ce inner join contrato co on ce.IdContrato=co.IdContrato where co.IdObra=o.IdObra),0)/ifnull((select sum(Monto+ifnull((select sum(Importe*(case when AdicionalDeductivo=0 then 1 else -1 end)) from alteracion where IdContrato=contrato.IdContrato),0)) from contrato where IdObra=o.IdObra), 0)*100 as PorcentajeAvance,
-				  ifnull((select sum(montoavance) from certificacion ce inner join contrato co on ce.IdContrato=co.IdContrato where co.IdObra=o.IdObra),0) as MontoAvance,
+				  
+				  concat('$',ifnull((select FORMAT(sum(montoavance),2,'de_DE') from certificacion ce inner join contrato co on ce.IdContrato=co.IdContrato where co.IdObra=o.IdObra),0)) as MontoAvance,
 				  ifnull(o.CreditoPresupuestarioAprobado, 0) + ifnull((select sum(Importe) from refuerzopartida where IdObra=o.IdObra) ,0) - ifnull((select sum(montoavance) from certificacion ce inner join contrato co on ce.IdContrato=co.IdContrato where co.IdObra=o.IdObra),0) - ifnull((select sum(redeterminacionprecios) from certificacion ce inner join contrato co on ce.IdContrato=co.IdContrato where co.IdObra=o.IdObra),0) as SaldoCreditoPresup2,
-				  ifnull((select c.Monto - (select sum(pc.importe) from certificacion ce inner join contrato co on ce.IdContrato=co.IdContrato inner join pagocertificacion pc on pc.IdCertificacion = ce.IdCertificacion where co.IdObra=o.IdObra) from contrato c where c.IdObra=o.IdObra),0) as SaldoCreditoPresup,
+				            concat('$',ifnull((select FORMAT(c.Monto - (select sum(pc.importe) from certificacion ce inner join contrato co on ce.IdContrato=co.IdContrato inner join pagocertificacion pc on pc.IdCertificacion = ce.IdCertificacion where co.IdObra=o.IdObra),2,'de_DE')from contrato c where c.IdObra=o.IdObra),0)) as SaldoCreditoPresup,
 				  ifnull((select concat(substring(max(Periodo),5,2), '/', substring(max(Periodo),1,4)) from certificacion ce inner join contrato co on ce.IdContrato=co.IdContrato where co.IdObra=o.IdObra),'-') as UltimoCertificado,
+				   concat(ifnull((select FORMAT(ce.PorcentajeAvanceReal,2,'de_DE') from certificacion ce inner join contrato co on ce.IdContrato=co.IdContrato where co.IdObra=o.IdObra order by NroCertificado DESC LIMIT 1),0),'%') as PorcentajeFisicoReal,
+          		  ifnull(date_format((select ce.FechaMedicion from certificacion ce inner join contrato co on ce.IdContrato=co.IdContrato where co.IdObra=o.IdObra order by NroCertificado DESC LIMIT 1),'%d/%m/%Y'),0) as FechaMedicion,
 				  (case
 				  	when o.IdOrganismo=o.IdComitente then 'true'
 				  	when o.IdComitente=$idOrganismo then 'false'

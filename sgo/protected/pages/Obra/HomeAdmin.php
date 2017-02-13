@@ -126,7 +126,7 @@ class HomeAdmin extends PageBaseSP{
 			}
 		}
 
-		$param->Pager->Controls->insertAt(0,"PÃ¡ginas " . $startPageIndex . " a " . $endPageIndex . " de " . $pageCount . ": ");
+		$param->Pager->Controls->insertAt(0,"Páginas " . $startPageIndex . " a " . $endPageIndex . " de " . $pageCount . ": ");
 	}
 
 	public function btnBuscar_OnClick($sender, $param)

@@ -121,14 +121,18 @@
 						<com:TBoundColumn ID="bcDenominacion" DataField="Denominacion" HeaderText="Denominacion" ItemStyle.CustomStyle="width: 250px; min-width: 250px; max-width: 250px; word-wrap: break-word; text-wrap: unrestricted"/>
 						<com:TBoundColumn ID="bcLocalidad" DataField="Localidad" HeaderText="Localidad" ItemStyle.CustomStyle="width: 67px; min-width: 67px; max-width: 67px; word-wrap: break-word; text-wrap: unrestricted"/>
 						<com:TBoundColumn DataField="Expediente" HeaderText="Nro. Expediente" ItemStyle.CustomStyle="width: 70px; min-width: 70px; max-width: 90px; word-wrap: break-word; text-wrap: unrestricted"/>
-						<com:TBoundColumn DataField="Monto" HeaderText="Monto Total" DataFormatString="#number_format({0},2,',','.')" ItemStyle.HorizontalAlign="Right" ItemStyle.CustomStyle="width: 70px; min-width: 70px; max-width: 90px; word-wrap: break-word; text-wrap: unrestricted"/>
+						<com:TBoundColumn DataField="Monto" HeaderText="Monto Total" ItemStyle.HorizontalAlign="Right" ItemStyle.CustomStyle="width: 70px; min-width: 70px; max-width: 90px; word-wrap: break-word; text-wrap: unrestricted"/>		
 
-						<com:TBoundColumn DataField="Pagado" HeaderText="Total Pagado a la fecha" DataFormatString="#number_format({0},2,',','.')" ItemStyle.HorizontalAlign="Right" ItemStyle.CustomStyle="width: 70px; min-width: 70px; max-width: 90px; word-wrap: break-word; text-wrap: unrestricted"/>
+						<com:TBoundColumn DataField="Pagado" HeaderText="Total Pagado a la fecha" ItemStyle.HorizontalAlign="Right" ItemStyle.CustomStyle="width: 70px; min-width: 70px; max-width: 90px; word-wrap: break-word; text-wrap: unrestricted"/>
 
-						<com:TBoundColumn DataField="PorcentajeAvance" HeaderText="% Certif. Acumulado" DataFormatString="#number_format({0},2,',','.')" ItemStyle.HorizontalAlign="Right" ItemStyle.CustomStyle="width: 30px; min-width: 30px; max-width: 30px; word-wrap: break-word; text-wrap: unrestricted"/>
-						<com:TBoundColumn DataField="MontoAvance" HeaderText="$ Certif. Acumulado" DataFormatString="#number_format({0},2,',','.')" ItemStyle.HorizontalAlign="Right" ItemStyle.CustomStyle="width: 69px; min-width: 69px; max-width: 69px; word-wrap: break-word; text-wrap: unrestricted"/>
-						<com:TBoundColumn ID="bcSaldoPresup" DataField="SaldoCreditoPresup" HeaderText="Saldo Cred. Presup." DataFormatString="#number_format({0},2,',','.')" ItemStyle.HorizontalAlign="Right" ItemStyle.CustomStyle="width: 72px; min-width: 72px; max-width: 72px; word-wrap: break-word; text-wrap: unrestricted"/>
+						<com:TBoundColumn DataField="PorcentajeAvance" HeaderText="% Certif. Acumulado"  ItemStyle.HorizontalAlign="Right" ItemStyle.CustomStyle="width: 30px; min-width: 30px; max-width: 30px; word-wrap: break-word; text-wrap: unrestricted"/>
+						<com:TBoundColumn DataField="MontoAvance" HeaderText="$ Certif. Acumulado" ItemStyle.HorizontalAlign="Right" ItemStyle.CustomStyle="width: 69px; min-width: 69px; max-width: 69px; word-wrap: break-word; text-wrap: unrestricted"/>
+						<com:TBoundColumn ID="bcSaldoPresup" DataField="SaldoCreditoPresup" HeaderText="Saldo Disponible a Certificar" ItemStyle.HorizontalAlign="Right" ItemStyle.CustomStyle="width: 72px; min-width: 72px; max-width: 72px; word-wrap: break-word; text-wrap: unrestricted"/>
 						<com:TBoundColumn DataField="UltimoCertificado" HeaderText="Últ. Cert." ItemStyle.HorizontalAlign="Center" ItemStyle.CustomStyle="width: 39px; min-width: 39px; max-width: 39px; word-wrap: break-word; text-wrap: unrestricted"/>
+						<com:TBoundColumn DataField="PorcentajeFisicoReal" HeaderText="Porcentaje Fisico Real"  ItemStyle.HorizontalAlign="Center" ItemStyle.CustomStyle="width: 39px; min-width: 39px; max-width: 39px; word-wrap: break-word; text-wrap: unrestricted"/>
+						<com:TBoundColumn DataField="FechaMedicion" HeaderText="Fecha de Medición" ItemStyle.HorizontalAlign="Center" ItemStyle.CustomStyle="width: 49px; min-width: 49px; max-width: 49px; word-wrap: break-word; text-wrap: unrestricted"/>
+
+
 						<com:TBoundColumn DataField="Estado" HeaderText="Estado" ItemStyle.CustomStyle="width: 66px; min-width: 66px; max-width: 58px; word-wrap: break-word; text-wrap: unrestricted"/>
 						<com:TTemplateColumn ID="tcEditar" HeaderText="Editar Obra" ItemStyle.HorizontalAlign="Center" ItemStyle.CustomStyle="width: 16px; min-width: 16px; max-width: 16px; word-wrap: break-word; text-wrap: unrestricted">
 				            <prop:ItemTemplate>

@@ -1,6 +1,6 @@
 <?php
 
-include('../conf/db.php');
+include('../../conexion.php');
 
 $data = array();
 
@@ -37,9 +37,9 @@ $data[][] = array(
 				array('images/zonasur.png',0.5), 
 				1);
 
-$sql = 
 
-		// "SELECT 
+
+//$sql =  "SELECT 
 		  // o.Denominacion,
 		  // o.Latitud,
 		  // o.Longitud,
@@ -66,11 +66,31 @@ $sql =
 		// where 
 		  // o.Latitud <> '' and 
 		  // o.Longitud <> ''";
-		"
-		SELECT
+
+$sql = "SELECT
 			c.compromiso as Denominacion,
-			c.Latitud, 
-			c.Longitud,
+
+			IF(c.Latitud, c.Latitud, (SELECT 
+				localidad.Latitud  
+			FROM 
+				localidad 
+				LEFT JOIN compromiso ON compromiso.IdLocalidad = localidad.IdLocalidad 
+			WHERE 
+				compromiso.IdCompromiso = c.IdCompromiso 
+			LIMIT 1
+			)) as Latitud,
+
+			IF(c.Longitud, c.Longitud, (SELECT 
+				localidad.Longitud 
+			FROM 
+				localidad 
+				LEFT JOIN compromiso ON compromiso.IdLocalidad = localidad.IdLocalidad 
+			WHERE 
+				compromiso.IdCompromiso = c.IdCompromiso 
+			LIMIT 1
+			)) as Longitud,
+
+			'NCSF' as Zona,
 			co.Nombre as Organismo,
 			co.Color,
 			1 as IdEstadoObra, 
@@ -85,10 +105,26 @@ $sql =
 			usuario u on u.IdUsuario = cr.IdUsuario inner join      
 			compromisoorganismo co on co.IdCompromisoOrganismo = cr.IdOrganismo inner join
 			localidad l on l.IdLocalidad = c.IdLocalidad      
-		WHERE
-			c.Latitud <> ''
-			and  c.Longitud <> '' 
-		";
+		WHERE 
+			(IF(c.Latitud, c.Latitud, (SELECT 
+				localidad.Latitud  
+			FROM 
+				localidad 
+				LEFT JOIN compromiso ON compromiso.IdLocalidad = localidad.IdLocalidad 
+			WHERE 
+				compromiso.IdCompromiso = c.IdCompromiso 
+			LIMIT 1
+			)) IS NOT NULL)
+			AND 
+			(IF(c.Longitud, c.Longitud, (SELECT 
+				localidad.Longitud 
+			FROM 
+				localidad 
+				LEFT JOIN compromiso ON compromiso.IdLocalidad = localidad.IdLocalidad 
+			WHERE 
+				compromiso.IdCompromiso = c.IdCompromiso 
+			LIMIT 1
+			)) IS NOT NULL)";
 			
 $query = mysql_query($sql); 
 
@@ -127,7 +163,7 @@ while($row = mysql_fetch_object($query))
 					$content, 
 					array($row->Color), 
 					1,
-					// $row->Zona,
+					$row->Zona,
 					// $row->IdOrganismo,
 					// $row->IdEstadoObra);
 					$row->IdOrganismo);

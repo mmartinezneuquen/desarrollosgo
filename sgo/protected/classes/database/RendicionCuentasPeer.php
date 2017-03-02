@@ -3,31 +3,34 @@ class RendicionCuentasPeer
 {
 	public static function RendicionesByCertificacion($idCertificacion){
 		$sql= "SELECT 
-				  IdRendicionCuentas, 
-				  IdCertificacion, 
-				  Orden, 
-				  Proyecto,  
-				  localidad.Nombre as 'Localidad', 
-				  Empresa, 
-				  Cuit, 
-				  Factura, 
-				  Recibo, 
+				  rendicioncuentas.IdRendicionCuentas, 
+				  rendicioncuentas.IdCertificacion, 
+          		  contrato.IdContrato,
+          		  contrato.IdObra,
+				  rendicioncuentas.Orden, 
+				  rendicioncuentas.Proyecto,  
+				  rendicioncuentas.Empresa, 
+				  rendicioncuentas.Cuit, 
+				  rendicioncuentas.Factura, 
+				  rendicioncuentas.Recibo, 
 				  DATE_FORMAT(FechaEmision,'%d/%m/%Y') as FechaEmision,
-				  Concepto,
+				  rendicioncuentas.Concepto,
 				  DATE_FORMAT(FechaCancelacion,'%d/%m/%Y') as FechaCancelacion,
-				  OrdenDePago, 
-				  Monto, 
-				  Observaciones,
+				  rendicioncuentas.OrdenDePago, 
+				  rendicioncuentas.Monto, 
+				  rendicioncuentas.Observaciones,
 				  CASE rendicioncuentas.Estado
 		              WHEN 0 THEN 'Sujeto a Revision'
 		              WHEN 1 THEN 'Aprobado'
 		              WHEN 2 THEN 'Rechazado'
 		              WHEN 3 THEN 'Rechazado con Revision'
 		              END as Estado, 
-				  Revision, 
-				  Activo 
-			FROM rendicioncuentas inner join localidad on rendicioncuentas.IdLocalidad = localidad.IdLocalidad
-			WHERE idCertificacion = $idCertificacion and rendicioncuentas.Activo=1";
+				  rendicioncuentas.Revision, 
+				  rendicioncuentas.Activo 
+			FROM rendicioncuentas 
+			inner join certificacion on certificacion.IdCertificacion = rendicioncuentas.IdCertificacion
+      		inner join contrato ON contrato.IdContrato = certificacion.IdContrato
+			WHERE rendicioncuentas.idCertificacion = $idCertificacion and rendicioncuentas.Activo=1";
 		return $sql;
 	}
 

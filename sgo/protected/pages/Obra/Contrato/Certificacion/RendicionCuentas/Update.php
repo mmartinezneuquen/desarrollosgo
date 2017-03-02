@@ -7,10 +7,15 @@ class Update extends PageBaseSP{
 		//ido='IdObra'
 		//idcontrato= IdContrato'
 
+
+
 		if(!$this->IsPostBack){
+			$idObra = $this->Request["ido"];
 			$idCertificacion = $this->Request["id"];
 			$idRendicionCuentas = $this->Request["idc"];
 			$this->LoadDataRelated($idCertificacion);
+
+			//$this->hlkVolver->NavigateUrl .= "&idc=$idContrato&ido=$idObra";
 
 			if (!is_null($idCertificacion)) {
 				$this->lblAccion->Text = "Rendición de Cuentas s/Aporte Nacional";
@@ -46,7 +51,9 @@ class Update extends PageBaseSP{
 		//$this->ddlLocalidad->DataSource = $localidades;
 		//$this->ddlLocalidad->dataBind();
 
-		$this->hlkVolver->NavigateUrl .= "&idc=$idContrato&ido=$idObra";
+		//$this->hlkVolver->NavigateUrl .= "&idc=$idContrato&ido=$idObra";
+		$this->hlkVolver->NavigateUrl = "?page=Obra.Contrato.Certificacion.HomeAdmin&idc=$idContrato&ido=$idObra";
+		
 
 	}
 
@@ -54,6 +61,27 @@ class Update extends PageBaseSP{
 
 		$this->lblAccion->Text = "Rendición de Cuentas";
 		$this->LimpiarCampos();
+
+		$idLocalidad = $this->Session->get("usr_sgo_idLocalidad");
+
+		//Si el usuario es una Localidad, Oculto los controles
+		//if(!is_null($idLocalidad)){
+		//		$this->tcAprobarCuenta->Visible = false;
+		//		$this->tcRechazarCuenta->Visible = false;				
+		//	}
+
+		$idUsuario = $this->Session->get("usr_id");
+			$finder = UsuarioRecord::finder();
+			$usuario = $finder->findByPk($idUsuario);
+			//$idLocalidad = $this->Session->get("usr_id");
+			$idLocalidad = $usuario ->IdLocalidad;
+			
+			//Si el usuario es una Localidad, Oculto los controles
+			if(!is_null($idLocalidad)){				
+				$this->tcAprobarCuenta->Visible = false;
+				$this->tcRechazarCuenta->Visible = false;				
+			}
+
 
 		$data = $this->CreateDataSource("RendicionCuentasPeer","RendicionesByCertificacion", $idCertificacion);
 		 		$this->dgCuentas->DataSource = $data;
@@ -65,6 +93,10 @@ class Update extends PageBaseSP{
 		 		$this->lblTotal->Text = '$' . $totalmonto[0]["monto"];
 		 		
 		}
+
+
+		$this->ControlarCertificacionAprobada($idCertificacion);
+
 
 	}
 
@@ -132,6 +164,8 @@ class Update extends PageBaseSP{
 	public function btnAgregarRendicion_OnClick($sender, $param){
 		$idCertificacion = $this->Request["id"];
 		$idRendicion = $this->Request["idc"];
+		$idObra = $this->Request["ido"];
+		$idContrato = $this->Request["idcontrato"];	
 		
 		if($this->IsValid){
 			if(!is_null($idCertificacion)){
@@ -174,7 +208,9 @@ class Update extends PageBaseSP{
 				//$rendicioncuenta->Revision = $this-> ->Text;			
 			try{
 				$rendicioncuenta->save();
-				$this->Response->Redirect("?page=Obra.Contrato.Certificacion.RendicionCuentas.Update&id=$idCertificacion");				
+				//$this->Response->Redirect("?page=Obra.Contrato.Certificacion.RendicionCuentas.Update&id=$idCertificacion");	
+				$this->Response->Redirect("?page=Obra.Contrato.Certificacion.RendicionCuentas.Update&id=$idCertificacion&ido=$idObra&idcontrato=$idContrato");	
+						
 				}
 
 			catch(exception $e){
@@ -241,10 +277,32 @@ class Update extends PageBaseSP{
 				$this->Log($e->getMessage(),true);
 			}			
 
+		//$this->hlkVolver->NavigateUrl .="page=Obra.Contrato.Certificacion.HomeAdmin&idcontrato=$idContrato&ido=$idObra";
 		$this->Response->Redirect("?page=Obra.Contrato.Certificacion.RendicionCuentas.Update&id=$idCertificacion&ido=$idObra&idcontrato=$idContrato");	
+		//$this->Response->Redirect("?page=Obra.Contrato.Certificacion.HomeAdmin&idc=$idContrato&ido=$idObra");
 
 	}
 
+	public function ControlarCertificacionAprobada($idCertificacion){
+		//Si la certificacion esta aprobada, debe esconder todos los controles de edicion
+
+		$finder = CertificacionRecord::finder();
+		$certificacion = $finder->findByPk($idCertificacion);
+
+
+		if ($certificacion->Aprobada == 1){	
+			$this->btnCancelar->Display = "None"; // Cancelar 
+			$this->btnAgregarRendicion->Display = "None"; //Agregar Rendicion
+			$this->btnCancelarItem->Display = "None"; // Cancelar Rendicion
+			$this->lblGuardarCuentas->Text ="";
+			$this->lblCancelarCambios->Text ="";
+			
+			$this->tcEditarCuenta->Visible="false";// Editar Rendicion
+			$this->tcBorrarCuenta->Visible="false"; // Borrar Rendicion
+			$this->tcAprobarCuenta->Visible="false"; // Aprobar Rendicion
+			$this->tcRechazarCuenta->Visible="false"; // Rechazar Rendicion
+		}
+	}
 	
 }
 ?>

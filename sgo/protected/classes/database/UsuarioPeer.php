@@ -42,6 +42,7 @@ class UsuarioPeer
 			u.IdUsuario,
 			u.ApellidoNombre,
 			u.Username,
+			u.Email,
 			(SELECT GROUP_CONCAT(DISTINCT r.Nombre SEPARATOR ' - ') 
 			 FROM 
 			 	usuario_rol ur 

@@ -40,13 +40,13 @@
 							<th width="65px">Factura Nro.</th>
 							<th width="65px" >Fecha de Emisión</th>
 							<th width="100px">Concepto - Certificado Nro</th>
-							<th width="200px" >Orden de Pago o Cheque Nro.</th>
+							<th width="200px" >Orden de Pago</th>
 							<th width="44px" >Recibo Nro.</th>
 							<th width="65px" >Fecha de Cancelación</th>							
 							<th width="65px" >Monto $</th>
 							<th width="150px" >Observaciones</th>
-							<th width="65px">Guardar Cuenta</th>
-							<th width="65px">Cancelar Cambios</th>
+							<th width="65px"> <com:TLabel ID="lblGuardarCuentas" Text="Guardar Cuenta" /></th>
+							<th width="65px"> <com:TLabel ID="lblCancelarCambios" Text="Cancelar Cambios" /></th>
 						</tr>
 						<tr style="background-color:#CCC;">
 							<th width="100px"><com:TTextBox
@@ -113,10 +113,10 @@
 							</th>
 							<th><com:TTextBox
 					       		ID="txtOrdenPago" MaxLength="255" AutoTrim="True"
-					       		ToolTip="Ingrese el Orden de Pago o Cheque Nro." style="width: 200px; font-size: 10px;"/>
+					       		ToolTip="Ingrese el Orden de Pago" style="width: 200px; font-size: 10px;"/>
 					       	<com:TRequiredFieldValidator
 								ControlToValidate="txtOrdenPago"
-								ErrorMessage="Debe ingresar el Orden de Pago o Cheque Nro."
+								ErrorMessage="Debe ingresar el Orden de Pago"
 								Display="Dynamic"
 								Text="*"
 								ValidationGroup="Register"/>
@@ -163,7 +163,7 @@
 							<th>
 								<com:TImageButton
 									ID="btnAgregarRendicion"
-									ToolTip="Guardar"
+									ToolTip="Guardar2"
 									ImageUrl="themes/serviciospublicos/images/btn2nuevo.png"
 									CssClass="imgbtn2-guardar"
 									OnClick="btnAgregarRendicion_OnClick"
@@ -211,26 +211,27 @@
 										AllowCustomPaging="false" AllowSorting="true" OnSortCommand="sortDataGrid">
 										<com:TBoundColumn DataField="IdRendicionCuentas" Visible ="false" HeaderText="IdContratoItem" ItemStyle.HorizontalAlign="Center" />
 										<com:TBoundColumn DataField="IdCertificacion" Visible ="false" HeaderText="IdContrato" />
-										<com:TBoundColumn ItemStyle.Width="30px" DataField="Estado" HeaderText="Estado" />
-										<com:TBoundColumn ItemStyle.Width="30px" DataField="Orden" HeaderText="Nº de órden" />	
+										<com:TBoundColumn ItemStyle.Width="30px" DataField="Estado" Visible ="false" HeaderText="Estado" />
+										<com:TBoundColumn ItemStyle.Width="30px" DataField="Orden" Visible ="false" HeaderText="Nº de órden" />	
 										<com:TBoundColumn ItemStyle.Width="150px" DataField="Empresa" HeaderText="Empresa" />
 										<com:TBoundColumn ItemStyle.Width="65px" DataField="Cuit" HeaderText="Nro. de Cuit/Cuil" />
 										<com:TBoundColumn ItemStyle.Width="65px" DataField="Factura" HeaderText="Factura Nro." />
 										<com:TBoundColumn ItemStyle.Width="65px" DataField="FechaEmision" HeaderText="Fecha de Emisión" />
 										<com:TBoundColumn ItemStyle.Width="100px" DataField="Concepto" HeaderText="Concepto- Certificado Nro" />
-										<com:TBoundColumn ItemStyle.Width="200px" DataField="OrdenDePago" HeaderText="Orden de Pago o Cheque Nro." />
+										<com:TBoundColumn ItemStyle.Width="200px" DataField="OrdenDePago" HeaderText="Orden de Pago" />
 										<com:TBoundColumn ItemStyle.Width="40px" DataField="Recibo" HeaderText="Recibo Nro." />
 										<com:TBoundColumn ItemStyle.Width="65px" DataField="FechaCancelacion" HeaderText="Fecha de Cancelación" />
 										
 										<com:TBoundColumn ItemStyle.Width="65px" DataField="Monto" HeaderText="Monto $" />
 										<com:TBoundColumn ItemStyle.Width="150px" DataField="Observaciones" HeaderText="Observaciones" />
+										<com:TBoundColumn ItemStyle.Width="65px" DataField="Estado" HeaderText="Estado" />
 										
-										<com:TTemplateColumn ID="tcEditarCuenta2" Visible ="true" HeaderText="Editar" ItemStyle.HorizontalAlign="Center" ItemStyle.Width="25px">
+										<com:TTemplateColumn ID="tcEditarCuenta" Visible ="true" HeaderText="Editar" ItemStyle.HorizontalAlign="Center" ItemStyle.Width="25px">
 								            <prop:ItemTemplate>
 										       	<com:TActiveHyperLink
 										            ID="hlEditar"
 										            ToolTip="Haga click aquí para editar"
-										            NavigateUrl="?page=Obra.Contrato.Certificacion.RendicionCuentas.Update&id=<%# $this->Parent->Data['IdCertificacion']%>&idc=<%# $this->Parent->Data['IdRendicionCuentas']%>">
+										            NavigateUrl="?page=Obra.Contrato.Certificacion.RendicionCuentas.Update&id=<%# $this->Parent->Data['IdCertificacion']%>&idcontrato=<%# $this->Parent->Data['IdContrato']%>&idc=<%# $this->Parent->Data['IdRendicionCuentas']%>&ido=<%# $this->Parent->Data['IdObra']%>">
 										            <img src="themes/serviciospublicos/images/btnEditar.png" border="0"/>
 										    	</com:TActiveHyperLink>
 								            </prop:ItemTemplate>
@@ -240,7 +241,7 @@
 								            		<com:TActiveHyperLink
 										            ID="hlEditar"
 										            ToolTip="Haga click aquí para borrar la rendicion de cuenta seleccionada"
-										            NavigateUrl="?page=Obra.Contrato.Certificacion.RendicionCuentas.Update&id=<%# $this->Parent->Data['IdCertificacion']%>&idc=<%# $this->Parent->Data['IdRendicionCuentas']%>&borrar=true">
+										            NavigateUrl="?page=Obra.Contrato.Certificacion.RendicionCuentas.Update&id=<%# $this->Parent->Data['IdCertificacion']%>&idcontrato=<%# $this->Parent->Data['IdContrato']%>&idc=<%# $this->Parent->Data['IdRendicionCuentas']%>&ido=<%# $this->Parent->Data['IdObra']%>&borrar=true">
 										            <img src="themes/serviciospublicos/images/btnBorrar.png" border="0"/>
 										    	</com:TActiveHyperLink>
 								            </prop:ItemTemplate>
@@ -250,7 +251,7 @@
 								            		<com:TActiveHyperLink
 										            ID="hlEditar"
 										            ToolTip="Haga click aquí para aprobar la rendicion de cuenta seleccionada"
-										            NavigateUrl="?page=Obra.Contrato.Certificacion.RendicionCuentas.Update&id=<%# $this->Parent->Data['IdCertificacion']%>&idc=<%# $this->Parent->Data['IdRendicionCuentas']%>&aprobado=true">
+										            NavigateUrl="?page=Obra.Contrato.Certificacion.RendicionCuentas.Update&id=<%# $this->Parent->Data['IdCertificacion']%>&idcontrato=<%# $this->Parent->Data['IdContrato']%>&idc=<%# $this->Parent->Data['IdRendicionCuentas']%>&ido=<%# $this->Parent->Data['IdObra']%>&aprobado=true">
 										            <img src="themes/serviciospublicos/images/btnAprobado.png" border="0"/>
 										    	</com:TActiveHyperLink>
 								            </prop:ItemTemplate>
@@ -260,7 +261,7 @@
 								            		<com:TActiveHyperLink
 										            ID="hlEditar"
 										            ToolTip="Haga click aquí para rechazado la rendicion de cuenta seleccionada"
-										            NavigateUrl="?page=Obra.Contrato.Certificacion.RendicionCuentas.Update&id=<%# $this->Parent->Data['IdCertificacion']%>&idc=<%# $this->Parent->Data['IdRendicionCuentas']%>&rechazado=true">
+										            NavigateUrl="?page=Obra.Contrato.Certificacion.RendicionCuentas.Update&id=<%# $this->Parent->Data['IdCertificacion']%>&idcontrato=<%# $this->Parent->Data['IdContrato']%>&idc=<%# $this->Parent->Data['IdRendicionCuentas']%>&ido=<%# $this->Parent->Data['IdObra']%>&rechazado=true">
 										            <img src="themes/serviciospublicos/images/btnRechazado.png" border="0"/>
 										    	</com:TActiveHyperLink>
 								            </prop:ItemTemplate>

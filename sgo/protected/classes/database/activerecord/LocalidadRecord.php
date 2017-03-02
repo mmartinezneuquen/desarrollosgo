@@ -14,7 +14,9 @@ class LocalidadRecord extends TActiveRecord
 	public $FotoLocalidad;
 	public $Zona;
 	public $Habitantes;
-        public $MarcaLocalidad;
+    public $MarcaLocalidad;
+	public $Latitud;
+	public $Longitud;
 
 	public static function finder($className=__CLASS__)
 	{

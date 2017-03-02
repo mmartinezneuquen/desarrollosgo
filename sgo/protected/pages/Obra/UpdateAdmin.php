@@ -164,7 +164,11 @@ class UpdateAdmin extends PageBaseSP{
 			$this->pnlMasLocalidades->Display = "Dynamic";
 		}
 
-		$this->txtDetalleLocalidad->Text = $obra->detalleLocalidad;
+		//$this->txtDetalleLocalidad->Text = $obra->detalleLocalidad;
+		$this->txtDetalleLocalidad->Text = date('Y-m-d H:i:s');
+		// $obra->UltimaActualizacion  = date('Y-m-d H:i:s');
+
+		
 		$this->txtLatitud->Text = $obra->Latitud;
 		$this->txtLongitud->Text = $obra->Longitud;
 
@@ -314,7 +318,7 @@ class UpdateAdmin extends PageBaseSP{
 
 			
 			try{
-				$obra->ultimaActualizacion  = date('Y-m-d H:i:s');
+				$obra->UltimaActualizacion  = date('Y-m-d H:i:s');
 				$obra->save();
 
 				$obraFufi = new ObraFuenteFinanciamientoRecord();

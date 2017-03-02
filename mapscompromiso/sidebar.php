@@ -1,11 +1,11 @@
-<?php include('conf/db.php'); ?>
+<?php //include('conf/db.php'); ?>
 <div class="titulo">
 <input type="checkbox" checked="checked" onclick="HideShowLayout(this,0);HideShowLayout(this,1);HideShowLayout(this,2);HideShowLayout(this,3);CheckUncheck('zonanorte',this.checked);CheckUncheck('zonacentro',this.checked);CheckUncheck('zonaconfluencia',this.checked);CheckUncheck('zonasur',this.checked);">
 <span class="group">ZONAS</span></div>
 <div class="subgroup">
 	<ul>
-		<li >
-                    <input id="zonanorte" type="checkbox" checked="checked" onclick="HideShowLayout(this, 0);"><div class='zona uno'></div> ZONA NORTE
+		<li>
+            <input id="zonanorte" type="checkbox" checked="checked" onclick="HideShowLayout(this, 0);"><div class='zona uno'></div> ZONA NORTE
 		</li>
 		<li>
 			<input id="zonacentro" type="checkbox" checked="checked" onclick="HideShowLayout(this,1);"><div class='zona dos'></div> ZONA CENTRO
@@ -19,7 +19,7 @@
 	</ul>
 </div>
 <div class="titulo">
-<input type="checkbox" checked="checked" onclick="CheckUncheckGroup('compromisoorganismo',this.checked);RefreshData();">
+<input type="checkbox" checked="checked" onclick="CheckUncheckGroup('organismo',this.checked);RefreshData();">
 <span class="group">ORGANISMOS</span></div>
 <div class="subgroup">
 	<ul id="organismos">
@@ -31,7 +31,7 @@
 			{ 
 		?>
  		<li style="color:<?php echo $row->Color; ?>">
-			<input id="compromisoorganismo_<?php echo $row->IdCompromisoOrganismo; ?>" type="checkbox" checked="checked" onclick="RefreshData();"><?php echo $row->Tag; ?>
+			<input id="organismo_<?php echo $row->IdCompromisoOrganismo; ?>" type="checkbox" checked="checked" onclick="RefreshData();"><?php echo $row->Tag; ?>
 		</li> 
 		<?php
 			}

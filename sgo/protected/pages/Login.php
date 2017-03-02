@@ -33,7 +33,9 @@ class Login extends PageBaseSP{
 			$this->Session->set("usr_id", $usuario->IdUsuario);
 			$this->Session->set("usr_nombreApellido", $usuario->ApellidoNombre);
 			$this->Session->set("usr_username", $usuario->Username);
+			$this->Session->set("usr_idLocalidad", $usuario->IdLocalidad);
 			$this->Session->set("usr_sgo_idOrganismo", $usuario->IdOrganismo);
+			
 			//$this->Session->set("usr_sgo_idRol", $usuario->IdRol);
 
 			if(!is_null($usuario->IdOrganismo)){

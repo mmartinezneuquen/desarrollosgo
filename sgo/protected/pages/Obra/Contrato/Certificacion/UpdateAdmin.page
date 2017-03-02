@@ -31,8 +31,13 @@
 	</div>
 	<div>
 		<fieldset>
+			<com:TLabel 
+				ID="lblProveedor" 
+				CssClass="label"
+				Style="width: 100%;"/>
+			<br />
 
-			<span class="label required">Obra</span>
+			<span class="label">Obra</span>
 			<com:TLabel 
 				ID="lblObra" 
 				CssClass="labeldata"/>
@@ -123,8 +128,7 @@
 		ValidationGroup="Register"/>
 
 </div>
-<br>
-<div style="display:inline-block">
+<div style="display:none ">  <!-- Deshabilitado temporalmente según requerimiento -->
 	<span class="label" style="width: 250px;">Municipalidad/comisión de fomento</span>
 			<com:TLabel 
 				ID="lblLocalidades" 
@@ -141,6 +145,12 @@
 	<span class="label" style="width:75px">Decreto Nº</span>
 			<com:TLabel 
 				ID="lblDecreto" 
+				CssClass="labeldata"/>
+</div>
+<div style="display:inline-block">
+	<span class="label" style="width:100px">Expediente Nº</span>
+			<com:TLabel 
+				ID="lblExpediente" 
 				CssClass="labeldata"/>
 </div>
 <br>
@@ -191,7 +201,7 @@ AutoPostBack="true"
 
 
 
-<div style="display:inline-block">
+<div style="display:none">  <!-- Deshabilitado temporalmente según requerimiento -->
 	<span class="label" style="width: 250px;">Fecha de pago del anticipo financiero</span>
 
 
@@ -203,11 +213,10 @@ AutoPostBack="true"
 </div>
 <br>
 <div style="display:inline-block">
-<span class="label" style="width:250px">Importe certificado anterior</span>
+<span class="label" style="width:215px">Último certificado presentado</span>
 
     $<com:TActiveTextBox
         ID="txtImporteCertifAnterior"
-        CssClass="small"
         Enabled="false"/>
 &nbsp;&nbsp;&nbsp;-&nbsp;&nbsp;&nbsp;
  	<com:TActiveTextBox
@@ -216,7 +225,7 @@ AutoPostBack="true"
             Enabled="false" />%
 </div>
 <div style="display:inline-block">
-<span class="label" style="width:250px">Fecha de pago del certificado anterior</span>
+<span class="label" style="width:250px">Fecha de pago del último certificado</span>
     <com:TLabel
         ID="lblFechaUltimoPago"
         CssClass="labelData"/>
@@ -294,8 +303,8 @@ AutoPostBack="true"
 			        <com:THiddenField ID="hdnIdCertificacionItem" Value="<%# $this->Parent->Data['IdCertificacionItem']%>" />
 			        <com:TActiveTextBox
 			            ID="txtPrecioTotal"
-			            CssClass="small53 minfont importeAnterior <%# $this->Parent->Data['claseVinculadora']%>"
-				   		Style="text-align: right; float: right;"
+			            CssClass="minfont importeAnterior <%# $this->Parent->Data['claseVinculadora']%>"
+				   		Style="text-align: right; float: right; width: 80%;"
 			            MaxLength="9"
 			            AutoTrim="True"
 			            ToolTip="Monto Total"
@@ -309,8 +318,8 @@ AutoPostBack="true"
 			    <prop:ItemTemplate>
 			        <com:TActiveTextBox
 			            ID="txtIncidencia"
-			            CssClass="small53 minfont incidencia <%# $this->Parent->Data['claseVinculadora']%>"
-				   		Style="text-align: right; float: right;"
+			            CssClass="minfont incidencia <%# $this->Parent->Data['claseVinculadora']%>"
+				   		Style="text-align: right; float: right; width: 80%; "
 			            MaxLength="9"
 			            AutoTrim="True"
 			            ToolTip="Incidencia"
@@ -324,8 +333,8 @@ AutoPostBack="true"
 			    <prop:ItemTemplate>
 			        <com:TActiveTextBox
 			            ID="txtIncidenciaPorcentaje"
-			            CssClass="small53 minfont incidenciaPorcentaje <%# $this->Parent->Data['claseVinculadora']%>"
-				   		Style="text-align: right; float: right;"
+			            CssClass="minfont incidenciaPorcentaje <%# $this->Parent->Data['claseVinculadora']%>"
+				   		Style="text-align: right; float: right; width: 80%; "
 			            MaxLength="9"
 			            AutoTrim="True"
 			            ToolTip="Incidencia %"
@@ -346,8 +355,8 @@ AutoPostBack="true"
 			    <prop:ItemTemplate>
 			       	<com:TActiveTextBox
 			            ID="txtPorcentajeAnterior"
-			            CssClass="small53 minfont porcentajeAnterior <%# $this->Parent->Data['claseVinculadora']%>"
-				   		Style="text-align: right; float: right;"
+			            CssClass="minfont porcentajeAnterior <%# $this->Parent->Data['claseVinculadora']%>"
+				   		Style="text-align: right; float: right; width: 80%; "
 			            MaxLength="9"
 			            AutoTrim="True"
 			            ToolTip="Certif. acumulados anteriores en %"
@@ -361,8 +370,8 @@ AutoPostBack="true"
 			    <prop:ItemTemplate>
 			      	<com:TActiveTextBox
 			            ID="txtImporteAnterior"
-			            CssClass="small53 minfont importeAnterior <%# $this->Parent->Data['claseVinculadora']%>"
-				   		Style="text-align: right; float: right;"
+			            CssClass="minfont importeAnterior <%# $this->Parent->Data['claseVinculadora']%>"
+				   		Style="text-align: right; float: right; width: 80%; "
 			            MaxLength="9"
 			            AutoTrim="True"
 			            ToolTip="Certif. acumulados anteriores en $"
@@ -376,8 +385,8 @@ AutoPostBack="true"
 	     		<prop:ItemTemplate>
 	         		<com:TActiveTextBox
 				   		ID="txtPorcentajeActual"
-						CssClass="small53 minfont porcentajeActual <%# $this->Parent->Data['claseVinculadora']%>"
-				   		Style="text-align: right; float: right;"
+						CssClass="minfont porcentajeActual <%# $this->Parent->Data['claseVinculadora']%>"
+				   		Style="text-align: right; float: right; width: 80%; "
 						MaxLength="15"
 						AutoTrim="True"
 				   		ToolTip="Ingrese el % de certificación"
@@ -402,8 +411,8 @@ AutoPostBack="true"
          		<prop:ItemTemplate>
              		<com:TActiveTextBox
 				   		ID="txtImporteActual"
-						CssClass="small53 minfont importeActual <%# $this->Parent->Data['claseVinculadora']%>"
-				   		Style="text-align: right; float: right;"
+						CssClass="minfont importeActual <%# $this->Parent->Data['claseVinculadora']%>"
+				   		Style="text-align: right; float: right; width: 80%; "
 						MaxLength="15"
 						AutoTrim="True"
 				   		ToolTip="Ingrese el $ de certificación"
@@ -423,8 +432,8 @@ AutoPostBack="true"
 			    <prop:ItemTemplate>
 			       	<com:TActiveTextBox
 			            ID="txtPorcentajeAcum"
-			            CssClass="small53 minfont porcentajeAcum <%# $this->Parent->Data['claseVinculadora']%>"
-				   		Style="text-align: right; float: right;"
+			            CssClass="minfont porcentajeAcum <%# $this->Parent->Data['claseVinculadora']%>"
+				   		Style="text-align: right; float: right; width: 80%; "
 			            MaxLength="9"
 			            AutoTrim="True"
 			            ToolTip="Certificado acumuelado total en %"
@@ -445,8 +454,8 @@ AutoPostBack="true"
 			    <prop:ItemTemplate>
 			       	<com:TActiveTextBox
 			            ID="txtImporteAcum"
-			            CssClass="small53 minfont importeAcum <%# $this->Parent->Data['claseVinculadora']%>"
-				   		Style="text-align: right; float: right;"
+			            CssClass="minfont importeAcum <%# $this->Parent->Data['claseVinculadora']%>"
+				   		Style="text-align: right; float: right; width: 80%; "
 			            MaxLength="9"
 			            AutoTrim="True"
 			            ToolTip="Certificado acumuelado total en $"
@@ -518,22 +527,22 @@ AutoPostBack="true"
             Enabled="false"/>
     </div>
 
-    <div>
+    <div style="display: none"> <!-- Deshabilitado temporalmente según requerimiento -->
         <span class="label" style="width:370px">Fondo de Reparo 5% Del Certificado Bruto</span>
         <com:TActiveTextBox
             ID="txtFondoReparo"
             CssClass="small100"
-AutoPostBack="true"
-	OnTextChanged="Page.txtFondoReparo_OnTextChanged"
-	ClientSide.OnLoading="Element.show('callback_status')"
-	ClientSide.OnComplete="Element.hide('callback_status')"/>
+			AutoPostBack="true"
+			OnTextChanged="Page.txtFondoReparo_OnTextChanged"
+			ClientSide.OnLoading="Element.show('callback_status')"
+			ClientSide.OnComplete="Element.hide('callback_status')"/>
     </div>
 
 </div>
 <br><br>
 <table style="font-size:12px" border="1" cellspacing="0" >
     <tr>
-        <td style="text-align:center">TOTAL A PAGAR POR EL MUNICIPIO CORRESP. AL CERTIFICADO ACTUAL<br>(Para Fondo de Reparo)</td>
+        <td style="text-align:center">TOTAL A PAGAR POR EL MUNICIPIO CORRESP. AL CERTIFICADO ACTUAL</td>
         <td style="text-align:center">        
                 <com:TActiveTextBox
                     ID="txtTotalPagoMunicipio"
@@ -541,7 +550,7 @@ AutoPostBack="true"
                     Enabled="false"/>
         </td>
     </tr>
-    <tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+    <!--<tr><td>&nbsp;</td><td>&nbsp;</td></tr>-->
     <tr>
         <td style="text-align:center">TOTAL A PAGAR  POR EL GOBIERNO PROVINCIAL CORRESP. AL CERTIFICADO ACTUAL</td>
         <td style="text-align:center"> 

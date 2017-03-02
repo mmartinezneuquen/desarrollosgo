@@ -83,10 +83,11 @@
 		        AllowSorting="false"
 		        OnPageIndexChanged="dgDatos_OnPageIndexChanged"
 		        OnPagerCreated="dgDatos_OnPagerCreated">
-				<com:TBoundColumn DataField="fecha" HeaderText="Fecha" ItemStyle.HorizontalAlign="Right" ItemStyle.Width="50px" />
-				<com:TBoundColumn DataField="organismo" HeaderText="Organismo" ItemStyle.HorizontalAlign="Right" ItemStyle.Width="50px" />
+				<com:TBoundColumn DataField="fecha" HeaderText="Fecha" ItemStyle.HorizontalAlign="Right" ItemStyle.Width="80px" />
+				<com:TBoundColumn DataField="organismo" HeaderText="Organismo" ItemStyle.HorizontalAlign="Right" ItemStyle.Width="100px" />
 				<com:TBoundColumn DataField="responsable" HeaderText="Responsable" ItemStyle.HorizontalAlign="Left" ItemStyle.Width="150px" />
 				<com:TBoundColumn DataField="Nombre" HeaderText="Localidad" ItemStyle.HorizontalAlign="Left" ItemStyle.Width="150px" />
+				<com:TBoundColumn DataField="Revisiones" HeaderText="Cantidad de Revisiones" ItemStyle.HorizontalAlign="Center" ItemStyle.Width="70px" />
 				<com:TBoundColumn DataField="compromiso" HeaderText="Compromiso" />				
 				<com:TTemplateColumn ID="tcEditar" HeaderText="Editar" ItemStyle.HorizontalAlign="Center" ItemStyle.Width="50px">
 		            <prop:ItemTemplate>

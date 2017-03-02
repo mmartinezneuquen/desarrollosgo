@@ -74,7 +74,11 @@
 
 								<com:TConditional Condition="!in_array($this->Parent->Data['NombreEstado'], ['No presentado','Desaprobado'])">
 								    <prop:TrueTemplate>
+                                                                    <!-- //>> ver de mejojrar, por ahora se pasa todo como texto
 								        <a href="output/documentos/<%# $this->Parent->Data['Archivo'] %>" target="_blank">Ver</a>
+                                                                    -->
+                                                            <%# $this->Parent->Data['Archivo'] %>
+                                                                    
 								    </prop:TrueTemplate>
 								</com:TConditional>
 						    
@@ -89,7 +93,7 @@
 						    	<com:THiddenField ID="hdnCurrentDocumentFile" Value="<%# $this->Parent->Data['Archivo'] %>" />
 						    	<com:THiddenField ID="hdnIdDocumento" Value="<%# $this->Parent->Data['IdDocumento'] %>" />
 								
-								<com:TActivePanel ID="pnlSubir"
+                                                            <com:TActivePanel ID="pnlSubir"
 									CssClass=<%# $this->Parent->Data['HabilitaBoton'] == 1  ? "subir" : "invalid" %> 
 									>
 							      
@@ -107,8 +111,75 @@
 							    		<com:THiddenField ID="hdnDocumentFile" Value="" />
 						    			<com:THiddenField ID="hdnRejectedDocumentFiles" Value="" />
 						    		</div>
+<!-- //>> para subir el segundo archivo al mismo documento -->
 
-						    	</com:TActivePanel>
+	<input type='file' id='fileInput2_<%# $this->Parent->Data['IdDocumento'] %>' n='<%# $this->Parent->Data['IdDocumento'] %>' />
+									<a class='btnUpload' href='javascript:void(0);' onclick='uploadDocument2(<%# $this->Parent->Data['IdDocumento'] %>)'>Subir</a>
+						    		<img src="assets/img/frmwrk/FileUploadIndicator.gif" alt="" class="fileUploadStatusIcon"
+						    			 id="file2_<%# $this->Parent->Data['IdDocumento'] %>_Busy" style="display: none;">
+						    		<img src="assets/img/frmwrk/FileUploadComplete.png" alt="" class="fileUploadStatusIcon"
+						    			 id="file2_<%# $this->Parent->Data['IdDocumento'] %>_Success" style="display: none;">
+						    		<img src="assets/img/frmwrk/FileUploadError.png" alt="" class="fileUploadStatusIcon"
+						    			 id="file2_<%# $this->Parent->Data['IdDocumento'] %>_Error" style="display: none;">
+						    		<p class="errmsg" id="errormsgupload2_<%# $this->Parent->Data['IdDocumento'] %>"></p>
+
+						    		<div id="filenames2_<%# $this->Parent->Data['IdDocumento'] %>">
+							    		<com:THiddenField ID="hdnDocumentFile2" Value="" />
+						    			<com:THiddenField ID="hdnRejectedDocumentFiles2" Value="" />
+						    		</div>
+<!-- //>> termino el segundo -->
+<!-- //>> para subir el tercer archivo al mismo documento -->
+
+	<input type='file' id='fileInput3_<%# $this->Parent->Data['IdDocumento'] %>' n='<%# $this->Parent->Data['IdDocumento'] %>' />
+									<a class='btnUpload' href='javascript:void(0);' onclick='uploadDocument3(<%# $this->Parent->Data['IdDocumento'] %>)'>Subir</a>
+						    		<img src="assets/img/frmwrk/FileUploadIndicator.gif" alt="" class="fileUploadStatusIcon"
+						    			 id="file3_<%# $this->Parent->Data['IdDocumento'] %>_Busy" style="display: none;">
+						    		<img src="assets/img/frmwrk/FileUploadComplete.png" alt="" class="fileUploadStatusIcon"
+						    			 id="file3_<%# $this->Parent->Data['IdDocumento'] %>_Success" style="display: none;">
+						    		<img src="assets/img/frmwrk/FileUploadError.png" alt="" class="fileUploadStatusIcon"
+						    			 id="file3_<%# $this->Parent->Data['IdDocumento'] %>_Error" style="display: none;">
+						    		<p class="errmsg" id="errormsgupload3_<%# $this->Parent->Data['IdDocumento'] %>"></p>
+
+						    		<div id="filenames3_<%# $this->Parent->Data['IdDocumento'] %>">
+							    		<com:THiddenField ID="hdnDocumentFile3" Value="" />
+						    			<com:THiddenField ID="hdnRejectedDocumentFiles3" Value="" />
+						    		</div>
+<!-- //>> termino el tercero -->
+<!-- //>> para subir el cuarto archivo al mismo documento -->
+
+	<input type='file' id='fileInput4_<%# $this->Parent->Data['IdDocumento'] %>' n='<%# $this->Parent->Data['IdDocumento'] %>' />
+									<a class='btnUpload' href='javascript:void(0);' onclick='uploadDocument4(<%# $this->Parent->Data['IdDocumento'] %>)'>Subir</a>
+						    		<img src="assets/img/frmwrk/FileUploadIndicator.gif" alt="" class="fileUploadStatusIcon"
+						    			 id="file4_<%# $this->Parent->Data['IdDocumento'] %>_Busy" style="display: none;">
+						    		<img src="assets/img/frmwrk/FileUploadComplete.png" alt="" class="fileUploadStatusIcon"
+						    			 id="file4_<%# $this->Parent->Data['IdDocumento'] %>_Success" style="display: none;">
+						    		<img src="assets/img/frmwrk/FileUploadError.png" alt="" class="fileUploadStatusIcon"
+						    			 id="file4_<%# $this->Parent->Data['IdDocumento'] %>_Error" style="display: none;">
+						    		<p class="errmsg" id="errormsgupload4_<%# $this->Parent->Data['IdDocumento'] %>"></p>
+
+						    		<div id="filenames4_<%# $this->Parent->Data['IdDocumento'] %>">
+							    		<com:THiddenField ID="hdnDocumentFile4" Value="" />
+						    			<com:THiddenField ID="hdnRejectedDocumentFiles4" Value="" />
+						    		</div>
+<!-- //>> termino el cuarto -->
+<!-- //>> para subir el quinto archivo al mismo documento -->
+
+	<input type='file' id='fileInput5_<%# $this->Parent->Data['IdDocumento'] %>' n='<%# $this->Parent->Data['IdDocumento'] %>' />
+									<a class='btnUpload' href='javascript:void(0);' onclick='uploadDocument5(<%# $this->Parent->Data['IdDocumento'] %>)'>Subir</a>
+						    		<img src="assets/img/frmwrk/FileUploadIndicator.gif" alt="" class="fileUploadStatusIcon"
+						    			 id="file5_<%# $this->Parent->Data['IdDocumento'] %>_Busy" style="display: none;">
+						    		<img src="assets/img/frmwrk/FileUploadComplete.png" alt="" class="fileUploadStatusIcon"
+						    			 id="file5_<%# $this->Parent->Data['IdDocumento'] %>_Success" style="display: none;">
+						    		<img src="assets/img/frmwrk/FileUploadError.png" alt="" class="fileUploadStatusIcon"
+						    			 id="file5_<%# $this->Parent->Data['IdDocumento'] %>_Error" style="display: none;">
+						    		<p class="errmsg" id="errormsgupload5_<%# $this->Parent->Data['IdDocumento'] %>"></p>
+
+						    		<div id="filenames5_<%# $this->Parent->Data['IdDocumento'] %>">
+							    		<com:THiddenField ID="hdnDocumentFile5" Value="" />
+						    			<com:THiddenField ID="hdnRejectedDocumentFiles5" Value="" />
+						    		</div>
+<!-- //>> termino el quinto -->
+                                                            </com:TActivePanel>
 
 								<com:TActivePanel ID="pnlAprobar"
 									CssClass=<%# $this->Parent->Data['HabilitaBoton'] == 2  ? "aprobar" : "invalid" %> 
@@ -268,6 +339,242 @@
 		});
 	}
 
+
+<!-- //>> replica para subir segundo archivo -->
+
+	function uploadDocument2(documento)
+	{
+		var $fileInput = jQuery("#fileInput2_"+documento);
+		var formData = new FormData();
+
+		var iconsId = "file2_" + documento;
+
+		jQuery("[id^="+iconsId+"]").hide();
+		jQuery("#"+iconsId + "_Busy").show();
+
+        formData.append("n", $fileInput.attr("n"));
+        formData.append("cert", "<%= $this->Request['id'] %>");
+        formData.append("file", $fileInput[0].files[0]);
+
+        //nombre de archivo para el back-end
+        var $successFile = jQuery("#filenames2_" + documento + " [id*=hdnDocumentFile2]");
+        var $rejectedFiles = jQuery("#filenames2_" + documento + " [id*=hdnRejectedDocumentFiles2]");
+
+        jQuery.ajax({
+            url: "?page=UploadFile",
+            type: "post",
+            dataType: "json",
+            data: formData,
+            cache: false,
+            contentType: false,
+     		processData: false,
+     		success: function(res)
+     		{
+	            //icono
+				var iconResultId = iconsId + "_" + (res.success ? "Success" : "Error");
+	            jQuery("[id^="+iconsId+"]").hide();
+	            jQuery("#"+iconResultId).show();
+
+	            //mensaje de error
+	            jQuery("#errormsgupload2_"+documento).html(res.success ? "" : res.message);
+
+
+	            if ($successFile.val()) 
+	            	$rejectedFiles.val(($rejectedFiles.val() ? $rejectedFiles.val() + ";" : "") + $successFile.val());
+
+	            $successFile.val(res.filename);
+
+	        },
+	        error: function(err)
+	        {
+	        	jQuery("#errormsgupload2_"+documento).html("Error Desconocido");
+
+	        	if ($successFile.val()) 
+	            	$rejectedFiles.val($rejectedFiles.val() + ";" + $successFile.val());
+
+	            $successFile.val("");
+        	}
+		});
+	}
+
+<!-- //>> fin segunda replica-->
+
+<!-- //>> replica para subir tercer archivo -->
+
+	function uploadDocument3(documento)
+	{
+		var $fileInput = jQuery("#fileInput3_"+documento);
+		var formData = new FormData();
+
+		var iconsId = "file3_" + documento;
+
+		jQuery("[id^="+iconsId+"]").hide();
+		jQuery("#"+iconsId + "_Busy").show();
+
+        formData.append("n", $fileInput.attr("n"));
+        formData.append("cert", "<%= $this->Request['id'] %>");
+        formData.append("file", $fileInput[0].files[0]);
+
+        //nombre de archivo para el back-end
+        var $successFile = jQuery("#filenames3_" + documento + " [id*=hdnDocumentFile3]");
+        var $rejectedFiles = jQuery("#filenames3_" + documento + " [id*=hdnRejectedDocumentFiles3]");
+
+        jQuery.ajax({
+            url: "?page=UploadFile",
+            type: "post",
+            dataType: "json",
+            data: formData,
+            cache: false,
+            contentType: false,
+     		processData: false,
+     		success: function(res)
+     		{
+	            //icono
+				var iconResultId = iconsId + "_" + (res.success ? "Success" : "Error");
+	            jQuery("[id^="+iconsId+"]").hide();
+	            jQuery("#"+iconResultId).show();
+
+	            //mensaje de error
+	            jQuery("#errormsgupload3_"+documento).html(res.success ? "" : res.message);
+
+
+	            if ($successFile.val()) 
+	            	$rejectedFiles.val(($rejectedFiles.val() ? $rejectedFiles.val() + ";" : "") + $successFile.val());
+
+	            $successFile.val(res.filename);
+
+	        },
+	        error: function(err)
+	        {
+	        	jQuery("#errormsgupload3_"+documento).html("Error Desconocido");
+
+	        	if ($successFile.val()) 
+	            	$rejectedFiles.val($rejectedFiles.val() + ";" + $successFile.val());
+
+	            $successFile.val("");
+        	}
+		});
+	}
+
+<!-- //>> fin tercer replica-->
+
+<!-- //>> replica para subir cuarto archivo -->
+
+	function uploadDocument4(documento)
+	{
+		var $fileInput = jQuery("#fileInput4_"+documento);
+		var formData = new FormData();
+
+		var iconsId = "file4_" + documento;
+
+		jQuery("[id^="+iconsId+"]").hide();
+		jQuery("#"+iconsId + "_Busy").show();
+
+        formData.append("n", $fileInput.attr("n"));
+        formData.append("cert", "<%= $this->Request['id'] %>");
+        formData.append("file", $fileInput[0].files[0]);
+
+        //nombre de archivo para el back-end
+        var $successFile = jQuery("#filenames4_" + documento + " [id*=hdnDocumentFile4]");
+        var $rejectedFiles = jQuery("#filenames4_" + documento + " [id*=hdnRejectedDocumentFiles4]");
+
+        jQuery.ajax({
+            url: "?page=UploadFile",
+            type: "post",
+            dataType: "json",
+            data: formData,
+            cache: false,
+            contentType: false,
+     		processData: false,
+     		success: function(res)
+     		{
+	            //icono
+				var iconResultId = iconsId + "_" + (res.success ? "Success" : "Error");
+	            jQuery("[id^="+iconsId+"]").hide();
+	            jQuery("#"+iconResultId).show();
+
+	            //mensaje de error
+	            jQuery("#errormsgupload4_"+documento).html(res.success ? "" : res.message);
+
+
+	            if ($successFile.val()) 
+	            	$rejectedFiles.val(($rejectedFiles.val() ? $rejectedFiles.val() + ";" : "") + $successFile.val());
+
+	            $successFile.val(res.filename);
+
+	        },
+	        error: function(err)
+	        {
+	        	jQuery("#errormsgupload4_"+documento).html("Error Desconocido");
+
+	        	if ($successFile.val()) 
+	            	$rejectedFiles.val($rejectedFiles.val() + ";" + $successFile.val());
+
+	            $successFile.val("");
+        	}
+		});
+	}
+
+<!-- //>> fin cuarta replica-->
+
+<!-- //>> replica para subir quinto archivo -->
+
+	function uploadDocument5(documento)
+	{
+		var $fileInput = jQuery("#fileInput5_"+documento);
+		var formData = new FormData();
+
+		var iconsId = "file5_" + documento;
+
+		jQuery("[id^="+iconsId+"]").hide();
+		jQuery("#"+iconsId + "_Busy").show();
+
+        formData.append("n", $fileInput.attr("n"));
+        formData.append("cert", "<%= $this->Request['id'] %>");
+        formData.append("file", $fileInput[0].files[0]);
+
+        //nombre de archivo para el back-end
+        var $successFile = jQuery("#filenames5_" + documento + " [id*=hdnDocumentFile4]");
+        var $rejectedFiles = jQuery("#filenames5_" + documento + " [id*=hdnRejectedDocumentFiles4]");
+
+        jQuery.ajax({
+            url: "?page=UploadFile",
+            type: "post",
+            dataType: "json",
+            data: formData,
+            cache: false,
+            contentType: false,
+     		processData: false,
+     		success: function(res)
+     		{
+	            //icono
+				var iconResultId = iconsId + "_" + (res.success ? "Success" : "Error");
+	            jQuery("[id^="+iconsId+"]").hide();
+	            jQuery("#"+iconResultId).show();
+
+	            //mensaje de error
+	            jQuery("#errormsgupload5_"+documento).html(res.success ? "" : res.message);
+
+
+	            if ($successFile.val()) 
+	            	$rejectedFiles.val(($rejectedFiles.val() ? $rejectedFiles.val() + ";" : "") + $successFile.val());
+
+	            $successFile.val(res.filename);
+
+	        },
+	        error: function(err)
+	        {
+	        	jQuery("#errormsgupload5_"+documento).html("Error Desconocido");
+
+	        	if ($successFile.val()) 
+	            	$rejectedFiles.val($rejectedFiles.val() + ";" + $successFile.val());
+
+	            $successFile.val("");
+        	}
+		});
+	}
+
+<!-- //>> fin quinta replica-->
 
 	function aprobar(documento)
 	{

@@ -64,32 +64,30 @@ if(!in_array("geo_compromisos", $session->get("usr_botones"))) {
 	<body onload="initialize();">
 
 		<div id="header">
-			<div style="float:left; " class="palabra">
+            <div style="float:left; " class="palabra">
 		        SISTEMA GERENCIAL DE CONSULTAS PARA<br>
-				EL SEGUIMIENTO Y CONTROL DE OBRAS EN EJECUCIÓN
+		        EL SEGUIMIENTO Y CONTROL DE OBRAS EN EJECUCIÓN
 		    </div>
 		  	<div id="logo" style="float:right;">
-                <img style="padding: 5px 20px;height: 60px;" src="images/provinciaBlanco.png" height="76px" border="0" />
+                <img style="padding: 5px 20px;height: 60px;" src="../images/provinciaBlanco.png" height="76px" border="0" />
 		    </div>
 		</div>
-            <!--<div class="linea"></div>-->
+        <!--<div class="linea"></div>-->
 
 		<div id="sidebar">
 			<!--<div id="logoIadep" >
 				<img src="images/logo1.png" 	/>
 			</div>
 			<br />-->
-			<?php
-				include('sidebar.php');
-			?>
-			
+			<?php include('sidebar.php'); ?>
 		</div>
 
-			<div id="map"></div>
+		<div id="map"></div>
 
 		<div id="locations"></div>
-                  <div class="footer">
-        <span style="color:#fff;font-size: 9px">Coordinación Técnica Ministerio de Energía, Servicios Públicos y Recursos Naturales -</span> <a href="http://www.puntogap.com.ar" target="_blank">  Desarrollado por PUNTOGAP (<?php echo date('Y')?>)</a>
-    </div>
+        <div class="footer">
+            <span style="color:#fff;font-size: 9px">Coordinación Técnica Ministerio de Energía, Servicios Públicos y Recursos Naturales -</span> 
+            <a href="http://www.puntogap.com.ar" target="_blank">  Desarrollado por PUNTOGAP (<?php echo date('Y')?>)</a>
+        </div>
 	</body>
 </html>

@@ -7,6 +7,15 @@
 		        ID="lblAccion"
 		        Text=" Agregar Compromiso"
 		        CssClass="maintitle" />
+		        <com:TImageButton
+				ID="btnMail"
+				ToolTip="Guardar"
+				ImageUrl="themes/serviciospublicos/images/invisible.png"
+				CssClass="imgbtn2-guardar"
+				OnClick="btnVerTodos_OnClick"
+				Display="None"
+				 />
+		        
 		</div>
 		<div id="button-bar-top" style="margin: 15px 0 0 0;">
 			<com:TImageButton
@@ -27,6 +36,10 @@
 	</div>
 	<div>
 		<fieldset>
+			<com:TActiveLabel
+        		ID="lblActualizacion"
+        		CssClass="labeldata" />
+        		<br>        	
 			<span class="label">Fecha</span>
 			<com:TDatePicker
 				ID="dtpFecha"

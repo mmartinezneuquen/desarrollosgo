@@ -90,7 +90,11 @@ class Home extends PageBaseSP{
 
 	public function btnBuscar_OnClick($sender, $param)
 	{
+		$this->SaveSearchMemory($this->PagePath, $this->ddlLocalidad->ID, $this->ddlLocalidad->SelectedValue);
+		$this->SaveSearchMemory($this->PagePath, $this->ddlOrganismo->ID, $this->ddlOrganismo->SelectedValue);
+		$this->SaveSearchMemory($this->PagePath, $this->ddlResponsable->ID, $this->ddlResponsable->SelectedValue);
 		$this->SaveSearchMemory($this->PagePath, $this->txtBusqueda->ID, $this->txtBusqueda->Text);
+
 		$this->dgDatos->CurrentPageIndex = 0;
 		$this->Refresh();
 	}

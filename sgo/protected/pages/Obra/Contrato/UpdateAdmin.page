@@ -43,7 +43,7 @@
          		Style="display:none;" />
 			<com:TAutoComplete
 				ID="acpProveedor"
-				Width="350px"
+				Width="450px"
 				MinChars="4"
 				Frequency="1"
 				OnSuggest="acpProveedor_OnSuggest"

@@ -1,15 +1,19 @@
 <?php
 
-$maxFileSize = 5 * 1024 * 1024; //5MB
+$maxFileSize = 5 * 1024 * 1024; //5 Mb Tamaño maximo del documento adjunto
 
 $mimeTypes = [
     'pdf' => 'application/pdf',
 	'jpg' => 'image/jpeg',
-	//'png' => 'image/png',
+	'png' => 'image/png',
+    'xls'=>'application/vnd.ms-excel',
+    'xlsx'=>'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    'doc'=>'application/msword',
+    'docx'=>'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
 	//'gif' => 'image/gif',
 ];
-
 $storePath = dirname(__FILE__).'/../../output/documentos/tmp/';
+//$storeTmpPath = dirname(__FILE__).'/../../output/documentos/tmp';
 
 $doc = isset($_FILES['file']) ? $_FILES['file'] : false;
 

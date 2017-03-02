@@ -108,11 +108,19 @@ function setKmz(obj,layoutIndex){
 
 function setMarker(obj,layoutIndex){
 	var pinColor = obj[4][0];
-    var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
-        new google.maps.Size(21, 34),
-        new google.maps.Point(0,0),
-        new google.maps.Point(10, 34));
-
+//    var pinImage = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|" + pinColor,
+//        new google.maps.Size(21, 34),
+//        new google.maps.Point(0,0),
+//        new google.maps.Point(10, 34));
+ var image = {
+    url: 'images/marker/'+pinColor+'.png',
+    // This marker is 20 pixels wide by 32 pixels high.
+    size: new google.maps.Size(20, 32),
+    // The origin for this image is (0, 0).
+    origin: new google.maps.Point(0, 0),
+    // The anchor for this image is the base of the flagpole at (0, 32).
+    anchor: new google.maps.Point(0, 32)
+  };
     var pinShadow = new google.maps.MarkerImage("http://chart.apis.google.com/chart?chst=d_map_pin_shadow",
         new google.maps.Size(40, 37),
         new google.maps.Point(0, 0),
@@ -121,7 +129,7 @@ function setMarker(obj,layoutIndex){
 	var myLatLng = new google.maps.LatLng(obj[2][0], obj[2][1]);
 	var marker = new google.maps.Marker({
 					position: myLatLng,
-					icon: pinImage,
+					icon: image,
 					title: obj[1],
 					shadow: pinShadow
 				 });
@@ -291,27 +299,14 @@ function RefreshData(){
 	while(i<ArrayLayoutsData.length){
 
 		/*if((zonanorte.checked && ArrayLayoutsData[i][2].indexOf('N')>=0) || (zonacentro.checked && ArrayLayoutsData[i][2].indexOf('C')>=0) || (zonasur.checked && ArrayLayoutsData[i][2].indexOf('S')>=0) || (zonaconfluencia.checked && ArrayLayoutsData[i][2].indexOf('F')>=0)){*/
-			organismo = document.getElementById("organismo_" + ArrayLayoutsData[i][0]);
+		organismo = document.getElementById("organismo_" + ArrayLayoutsData[i][0]);
 
-			if(!organismo.checked){
-				hideLayout(i);
-			}
-/*			else{
-				estado = document.getElementById("estado_" + ArrayLayoutsData[i][1]);
-
-				if(!estado.checked){
-					hideLayout(i);
-				}
-				else{
-					showLayout(i);
-				}
-
-			}*/
-
-		/*}
-		else{
+		if(!organismo.checked){
 			hideLayout(i);
-		}*/
+		}
+		else {
+			showLayout(i);
+		}
 
 		i++;
 	}

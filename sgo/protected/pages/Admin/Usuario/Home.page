@@ -59,6 +59,7 @@
 		        OnPagerCreated="dgDatos_OnPagerCreated">
 				<com:TBoundColumn DataField="ApellidoNombre" HeaderText="Apellido y Nombre" />
 				<com:TBoundColumn DataField="Username" HeaderText="Nombre de Usuario"/>
+				<com:TBoundColumn DataField="Email" HeaderText="Email"/>
 				<com:TBoundColumn DataField="Organismo" HeaderText="Organismo"/>
 				<com:TBoundColumn DataField="Rol" HeaderText="Rol"/>
 				<com:TBoundColumn DataField="ActivoDesc" HeaderText="Activo" ItemStyle.HorizontalAlign="Center"/>

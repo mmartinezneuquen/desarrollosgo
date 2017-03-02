@@ -40,9 +40,8 @@
 							<td width="75px" style="padding: 1px 2px;">$ Certif.</th>
 							<td width="50px" style="padding: 1px 2px;">Ant. Fin.</th>
 							<td width="50px" style="padding: 1px 2px;">Dto. Ant.</th>
-							<td width="50px" style="padding: 1px 2px;">Fdo. Reparo</th>
-							<td width="100px" style="padding: 1px 2px;">Imp. Neto</th>
-							<td width="100px" style="padding: 1px 2px;">Imp. Pagado</th>
+							<td width="100px" style="padding: 1px 2px;">Importe Neto</th>
+							<td width="100px" style="padding: 1px 2px;">Importe Pagado</th>
 							<td width="100px" style="padding: 1px 2px;">Saldo</th>
 							<td width="50px" style="padding: 1px 2px;">% Acum.</th>
 							<td width="75px" style="padding: 1px 2px;">$ Acum.</th>
@@ -72,10 +71,9 @@
 				<com:TBoundColumn DataField="PorcentajeAvance" HeaderText="% Certif." DataFormatString="#number_format({0},2,',','.')" ItemStyle.Width="50px" ItemStyle.HorizontalAlign="Right"/>
 				<com:TBoundColumn DataField="MontoAvance" HeaderText="$ Certif."  DataFormatString="#number_format({0},2,',','.')" ItemStyle.Width="75px" ItemStyle.HorizontalAlign="Right"/>
 				<com:TBoundColumn DataField="AnticipoFinanciero" HeaderText="Ant. Fin." DataFormatString="#number_format({0},2,',','.')" ItemStyle.Width="50px" ItemStyle.HorizontalAlign="Right"/>
-				<com:TBoundColumn DataField="DescuentoAnticipo" HeaderText="Dto. Ant." DataFormatString="#number_format({0},2,',','.')" ItemStyle.Width="50px" ItemStyle.HorizontalAlign="Right"/>
-				<com:TBoundColumn DataField="RetencionFondoReparo" HeaderText="Fdo. Reparo" DataFormatString="#number_format({0},2,',','.')" ItemStyle.Width="50px" ItemStyle.HorizontalAlign="Right"/>			
+				<com:TBoundColumn DataField="DescuentoAnticipo" HeaderText="Dto. Ant." DataFormatString="#number_format({0},2,',','.')" ItemStyle.Width="50px" ItemStyle.HorizontalAlign="Right"/>		
 				<com:TBoundColumn DataField="ImporteNeto" HeaderText="Importe Neto" DataFormatString="#number_format({0},2,',','.')"  ItemStyle.Width="100px" ItemStyle.HorizontalAlign="Right"/>				
-				<com:THyperLinkColumn DataTextField="ImportePagado" DataTextFormatString="#number_format({0},2,',','.')" DataNavigateUrlField="IdCertificacion" DataNavigateUrlFormatString="javascript:OpenWindow('?page=Tesoreria.Pago.PagosByCertificado&id=%s',500,400)" HeaderText="Imp. Pagado" ItemStyle.HorizontalAlign="Right" ItemStyle.Width="100px"/>
+				<com:THyperLinkColumn DataTextField="ImportePagado" DataTextFormatString="#number_format({0},2,',','.')" DataNavigateUrlField="IdCertificacion" DataNavigateUrlFormatString="javascript:OpenWindow('?page=Tesoreria.Pago.PagosByCertificado&id=%s',500,400)" HeaderText="Importe Pagado" ItemStyle.HorizontalAlign="Right" ItemStyle.Width="100px"/>
 				<com:TBoundColumn DataField="Saldo" HeaderText="Saldo" DataFormatString="#number_format({0},2,',','.')" ItemStyle.Width="100px" ItemStyle.HorizontalAlign="Right"/>
 				<com:TBoundColumn DataField="PorcentajeAvanceAcum" HeaderText="% Acum." DataFormatString="#number_format({0},2,',','.')" ItemStyle.Width="50px ItemStyle.HorizontalAlign="Right"/>
 				<com:TBoundColumn DataField="MontoAvanceAcum" HeaderText="$ Acum." DataFormatString="#number_format({0},2,',','.')" ItemStyle.HorizontalAlign="Right" ItemStyle.Width="75px"/>
@@ -137,7 +135,6 @@
 						<td width="75px"><strong><com:TActiveLabel ID="lblmontoavance" /></strong></td>
 						<td width="50px"></td>
 						<td width="50px"><strong><com:TActiveLabel ID="lbldescuentoanticipo" /></strong></td>
-						<td width="50px"></td>
 						<td width="100px"></td>
 						<td width="100px"></td>
 						<td width="100px"></td>

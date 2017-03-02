@@ -78,10 +78,12 @@ class UpdateAdmin extends PageBaseSP
             $idObra = $this->Request["ido"];
             $idContrato = $this->Request["idc"];
             $id = $this->Request["id"];
+            $this->MunicipioAdmin = in_array("11", $this->Session->get("usr_roles")); // Actualiza para no hacer un hdn molesto
             if (!is_null($id)) {
                 $this->lblAccion->Text = "Modificar Certificación";
                 $this->cargarDatos($id, $idObra, $idContrato);
             } else {
+                $this->btnAprobarCertificacion->Visible = $this->MunicipioAdmin;
                 if ($this->SugerirNumeroCertificado($idContrato, 0) == 0)
                 {
                     //echo "NUEVO";
@@ -127,13 +129,15 @@ class UpdateAdmin extends PageBaseSP
 
         $obra = ObraRecord::finder()->findByPk($idObra);
         $organismo = OrganismoRecord::finder()->findByPk($obra->IdOrganismo);
-        $localidades = $this->CreateDataSource("ObraPeer", "LocalidadesPorObra", $idObra);
-        $this->lblObra->Text = $organismo->PrefijoCodigo . '-' . $obra->Codigo . ' ' . $obra->Denominacion;
-        $this->lblLocalidades->Text = $localidades[0]["Localidades"];
-
         $contrato = ContratoRecord::finder()->findByPk($idContrato);
         $proveedor = ProveedorRecord::finder()->findByPk($contrato->IdProveedor);
         $periodo = preg_replace('/(\d+)\/(\d+)/','$2$1', $this->dtpPeriodo->Text);
+
+        $localidades = $this->CreateDataSource("ObraPeer", "LocalidadesPorObra", $idObra);
+        $this->lblProveedor->Text = $proveedor->RazonSocial;
+        $this->lblObra->Text = $organismo->PrefijoCodigo . '-' . $obra->Codigo . ' ' . $obra->Denominacion;
+        $this->lblLocalidades->Text = $localidades[0]["Localidades"];
+
         //die("eeee$periodo");
         
         $certificacionAnterior = $this->CreateDataSource("CertificacionPeer", "getCertificacionAnterior", $idContrato, $periodo);
@@ -152,6 +156,7 @@ class UpdateAdmin extends PageBaseSP
         $this->dgDatos->DataSource = $contratoItems;
         $this->dgDatos->dataBind();
         $this->lblDecreto->Text = $contrato->NormaLegalAutorizacion;
+        $this->lblExpediente->Text = $obra->Expediente ? $obra->Expediente : "---";
         $this->lblContratista->Text = $proveedor->RazonSocial;
 
         //$this->lblMontoProvincia->Text = $curr->str($contrato->MontoProvincia); // Sustituido temporalmente por:
@@ -337,8 +342,9 @@ class UpdateAdmin extends PageBaseSP
                 $control->Enabled = false;
             }
         }
-        $this->MunicipioAdmin = in_array("11", $this->Session->get("usr_roles")); // Actualiza para no hacer un hdn molesto
+
         $this->btnAprobarCertificacion->Visible = $habilitado && $this->MunicipioAdmin;
+        
     }
 
     public function cargarDatos($idCertificacion, $idObra, $idContrato) 
@@ -359,6 +365,8 @@ class UpdateAdmin extends PageBaseSP
 
         $this->hdnAprobada->Value = $certificacion["Aprobada"];
         $this->habilitacionControlesSegunAprobacion($certificacion["Aprobada"]);
+
+        
 
         //$this->dtpPeriodo->Enabled = false;
         $this->txtNumero->Text = $certificacion["NroCertificado"];
@@ -450,8 +458,12 @@ class UpdateAdmin extends PageBaseSP
                 $certificacion = new CertificacionRecord();
                 $certificacion->IdContrato = $idContrato;
             }
-            $periodo = explode("/", $this->dtpPeriodo->Text);
-            $certificacion->Periodo = $periodo[1] . $periodo[0];
+
+            if ($this->dtpPeriodo->Enabled) 
+            {
+                $periodo = explode("/", $this->dtpPeriodo->Text);
+                $certificacion->Periodo = $periodo[1] . $periodo[0];
+            }
 
             if ($this->txtNumero->Text != "") {
                 $certificacion->NroCertificado = $this->txtNumero->Text;
@@ -459,9 +471,7 @@ class UpdateAdmin extends PageBaseSP
                 $certificacion->NroCertificado = null;
             }
 
-            
             $certificacion->Aprobada = $this->hdnAprobada->Value;
-            //print_r($certificacion->Periodo);die();
             $certificacion->PorcentajeAvance = $prcnt->num($this->lblSumaPorcentajeActual->Text);
             $certificacion->MontoAvance = $this->hdnSumaImporteActual->Value;
             $certificacion->DescuentoAnticipo = $curr->num($this->txtDescuentoAnticipoActual->Text);

@@ -42,11 +42,30 @@ class Update extends PageBaseSP{
 		
 		$finder = CompromisoRecord::finder();
 		$compromiso = $finder->findByPk($idCompromiso);
-		
+
+		$idUsuario = $compromiso->IdUsuario;
+
 		if(!is_null($compromiso->Fecha)){
 			$fecha = explode("-",$compromiso->Fecha);
 			$this->dtpFecha->Text = $fecha[2]."/".$fecha[1]."/".$fecha[0];
 		} 
+
+		//
+		
+		//$usuario = $finder->findByPk($compromiso->$IdUsuario);
+
+		//echo "<pre>";print_r($idUsuario); die();
+		if ($idUsuario == 79){
+			$this->lblActualizacion->Text = "Compromiso generado automaticamente en la importación de datos iniciales";		
+		}
+		else
+		{
+			$finder = UsuarioRecord::finder();
+			$usuario = $finder->findByPk($idUsuario);
+
+			$this->lblActualizacion->Text = "Compromiso creado por " . $usuario->ApellidoNombre;			
+		}
+
 		
 		$this->txtDenominacion->Text = $compromiso->Compromiso;
 		$this->ddlResponsable->Text = $compromiso->IdResponsable;
@@ -126,5 +145,22 @@ class Update extends PageBaseSP{
 			}
 		}
 	 }
+
+	public function btnVerTodos_OnClick($sender, $param)
+	{
+		$to = "mauriciodmartinez@gmail.com";
+		//echo "<pre>";print_r($to); die();
+		$subject = "SGO";
+		$txt = "Hello world!";
+		$headers = "From: mauriciodmartinez@gmail.com" . "\r\n" .
+		"CC: mauriciodmartinez@gmail.com";
+
+		mail($to,$subject,$txt,$headers);
+		
+
+	}
+
 }
+
+	
 ?>

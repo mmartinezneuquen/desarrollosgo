@@ -17,25 +17,7 @@ class HomeAdmin extends PageBaseSP{
 			$this->ddlEstado->SelectedValue = $this->GetSearchMemory($this->PagePath, $this->ddlEstado->ID);
 			$this->txtBusqueda->Text = $this->GetSearchMemory($this->PagePath, $this->txtBusqueda->ID);
 
-
-			//$idLocalidad = $this->Session->get("usr_idLocalidad");
-
-			//Si el usuario es una Localidad, Oculto los controles
-			//if(!is_null($idLocalidad)){
-			//	$this->ddlLocalidad->SelectedValue = $idLocalidad;
-			//	$this->lblLocalidad->Display ="None";
-			//	$this->ddlLocalidad->Display = "None";
-			//	$this->lblFufi->Display ="None";
-			//	$this->ddlFufi->Display = "None";
-			//	$this->btnVerTodos->Display = "None";
-			//	
-			//	$this->bcDenominacion->ItemStyle->CustomStyle="width: 500px; min-width: 250px; max-width: 250px; word-wrap: break-word; text-wrap: unrestricted";
-			//	$this->bcLocalidad->Visible = false;
-			//	$this->tcEditar->Visible = false;
-			//	$this->tcContratos->Visible = false;				
-			//	$this->tcItem->Visible = false;
-			//}
-
+			$this->ControlarUsuario();
 			$this->Refresh($idObra);
 		}
 	}
@@ -44,6 +26,7 @@ class HomeAdmin extends PageBaseSP{
 		$this->btnVerTodos->Display = "None";
 
 		$idOrganismo = $this->Session->get("usr_sgo_idOrganismo");
+
 		if ($idOrganismo == 12)
 			{$this->MostrarControlesIngresosBrutos();}
 		$localidades = $this->CreateDataSource("ObraAdministracionPeer","LocalidadesConObraSelect", $idOrganismo);
@@ -66,10 +49,41 @@ class HomeAdmin extends PageBaseSP{
 		$this->setViewState("Alarmas", $alarmas);
 	}
 
+	public function ControlarUsuario(){
+			$idLocalidad=0;
+
+			$idUsuario = $this->Session->get("usr_id");
+			$finder = UsuarioRecord::finder();
+			$usuario = $finder->findByPk($idUsuario);
+			//$idLocalidad = $this->Session->get("usr_id");
+			$idLocalidad = $usuario ->IdLocalidad;
+			
+			//Si el usuario es una Localidad, Oculto los controles
+			if(!is_null($idLocalidad)){
+				$this->ddlLocalidad->SelectedValue = $idLocalidad;
+				$this->lblLocalidad->Display ="None";
+				$this->ddlLocalidad->Display = "None";
+				$this->lblFufi->Display ="None";
+				$this->ddlFufi->Display = "None";
+				$this->tcEditar->Visible = false;
+				$this->tcContratos->Visible = false;				
+				$this->tcItem->Visible = false;
+				$this->btnAgregar->Visible=false;//Oculto el boton para agregar una nueva obra
+			}
+	}
+
 	public function Refresh($idObra='')
 	{
 		$idOrganismo = $this->Session->get("usr_sgo_idOrganismo");
-		$idLocalidad = $this->ddlLocalidad->SelectedValue;
+		$idUsuario = $this->Session->get("usr_id");
+		$finder = UsuarioRecord::finder();
+		$usuario = $finder->findByPk($idUsuario);
+		$idLocalidad = $usuario ->IdLocalidad;
+
+		if($idLocalidad == 0){
+			$idLocalidad = $this->ddlLocalidad->SelectedValue;			
+		}
+
 		$idFufi = $this->ddlFufi->SelectedValue;
 		$idEstado = $this->ddlEstado->SelectedValue;
 		$busqueda = $this->txtBusqueda->Text;
@@ -126,7 +140,7 @@ class HomeAdmin extends PageBaseSP{
 			}
 		}
 
-		$param->Pager->Controls->insertAt(0,"Páginas " . $startPageIndex . " a " . $endPageIndex . " de " . $pageCount . ": ");
+		$param->Pager->Controls->insertAt(0,"Paginas " . $startPageIndex . " a " . $endPageIndex . " de " . $pageCount . ": ");
 	}
 
 	public function btnBuscar_OnClick($sender, $param)
@@ -137,7 +151,6 @@ class HomeAdmin extends PageBaseSP{
 		$this->SaveSearchMemory($this->PagePath, $this->txtcodigoOrganismo->ID, $this->txtcodigoOrganismo->Text);
 		$this->SaveSearchMemory($this->PagePath, $this->txtcodigoObra->ID, $this->txtcodigoObra->Text);		
 		$this->SaveSearchMemory($this->PagePath, $this->txtBusqueda->ID, $this->txtBusqueda->Text);
-		//$this->dgDatos->CurrentPageIndex = 0;
 		$this->Session->set("ObraCurrentPage", 0);
 		$this->Refresh();
 	}
@@ -157,8 +170,6 @@ class HomeAdmin extends PageBaseSP{
 		$this->SaveSearchMemory($this->PagePath, $this->txtcodigoOrganismo->ID, $this->txtcodigoOrganismo->Text);
 		$this->SaveSearchMemory($this->PagePath, $this->txtcodigoObra->ID, $this->txtcodigoObra->Text);
 		$this->SaveSearchMemory($this->PagePath, $this->txtBusqueda->ID, $this->txtBusqueda->Text);
-		
-		//$this->dgDatos->CurrentPageIndex = 0;
 		$this->Session->set("ObraCurrentPage", 0);
 		$this->Refresh();
 	}

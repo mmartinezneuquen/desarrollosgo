@@ -41,7 +41,8 @@ class CompromisoPeer
 				"Select compromiso.IdCompromiso as IdCompromiso, compromiso.fecha as fecha, 
 				localidad.Nombre, localidad.Nombre,
 				CONCAT (SUBSTRING(compromiso.compromiso,1, 100),'...') as compromiso,				
-				usuario.ApellidoNombre as responsable , compromisoorganismo.tag as organismo
+				usuario.ApellidoNombre as responsable , compromisoorganismo.tag as organismo,
+				ifnull((Select count(idcompromiso) from compromisorevision where compromisorevision.IdCompromiso = compromiso.IdCompromiso) ,0) as Revisiones
 				From compromiso 
 				join compromisoresponsable on compromiso.IdResponsable = compromisoresponsable.IdCompromisoResponsable
 				join usuario on compromisoresponsable.IdUsuario = usuario.IdUsuario

@@ -93,7 +93,7 @@ class ObraAdministracionPeer
 				  ifnull((select sum(Importe) from refuerzopartida where IdObra=o.IdObra) ,0) as RefuerzoPartida,
 				  date_format(o.FechaPresupuestoOficial,'%d/%m/%Y') as FechaPresupuestoOficial,
 				  eo.Descripcion as Estado,
-				  concat('$ ',  FORMAT(contrato.Monto,2,'de_DE')) as Monto,
+				  concat('$',  FORMAT(contrato.Monto,2,'de_DE')) as Monto,
 				  concat('$',ifnull((select FORMAT(sum(pc.importe),2,'de_DE') from certificacion ce inner join contrato co on ce.IdContrato=co.IdContrato inner join pagocertificacion pc on pc.IdCertificacion = ce.IdCertificacion where co.IdObra=o.IdObra),0)) as Pagado,
 				  ifnull((select sum(montoavance) from certificacion ce inner join contrato co on ce.IdContrato=co.IdContrato where co.IdObra=o.IdObra),0)/ifnull((select sum(Monto+ifnull((select sum(Importe*(case when AdicionalDeductivo=0 then 1 else -1 end)) from alteracion where IdContrato=contrato.IdContrato),0)) from contrato where IdObra=o.IdObra), 0)*100 as PorcentajeAvance,
 				  

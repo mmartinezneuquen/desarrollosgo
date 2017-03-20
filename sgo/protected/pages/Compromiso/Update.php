@@ -63,10 +63,13 @@ class Update extends PageBaseSP{
 			$finder = UsuarioRecord::finder();
 			$usuario = $finder->findByPk($idUsuario);
 
-			$this->lblActualizacion->Text = "Compromiso creado por " . $usuario->ApellidoNombre;			
+			$this->lblActualizacion->Text = "Compromiso creado por el usuario " . $usuario->ApellidoNombre;			
 		}
 
+		//$fechaRegistro = explode("-",$compromiso->FechaRegistro);
+		$date=date_create($compromiso->FechaRegistro);
 		
+		$this->lblActualizacionFecha->Text = "Ultima actualizacion del compromiso: " . date_format($date,"d/m/Y");
 		$this->txtDenominacion->Text = $compromiso->Compromiso;
 		$this->ddlResponsable->Text = $compromiso->IdResponsable;
 		$this->ddlLocalidad->Text = $compromiso->IdLocalidad;

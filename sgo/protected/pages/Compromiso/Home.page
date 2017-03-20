@@ -76,7 +76,7 @@
 			    AutoGenerateColumns="false"
 	            AllowPaging="true"
 				AllowCustomPaging="false"
-				PageSize="15"
+				PageSize="30"
 		        PagerStyle.Mode="Numeric"
 		        PagerStyle.HorizontalAlign="Right"
 				PagerStyle.CssClass="pager"

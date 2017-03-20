@@ -39,6 +39,10 @@
 			<com:TActiveLabel
         		ID="lblActualizacion"
         		CssClass="labeldata" />
+        		<br>
+        	<com:TActiveLabel
+        		ID="lblActualizacionFecha"
+        		CssClass="labeldata" />
         		<br>        	
 			<span class="label">Fecha</span>
 			<com:TDatePicker

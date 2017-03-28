@@ -10,6 +10,8 @@ class Home extends PageBaseSP{
 			$this->ddlLocalidad->SelectedValue = $this->GetSearchMemory($this->PagePath, $this->ddlLocalidad->ID);
 			$this->ddlOrganismo->SelectedValue = $this->GetSearchMemory($this->PagePath, $this->ddlOrganismo->ID);
 			$this->ddlResponsable->SelectedValue = $this->GetSearchMemory($this->PagePath, $this->ddlResponsable->ID);
+			//$this->ddlEstadoCompromiso->SelectedValue = $this->GetSearchMemory($this->PagePath, $this->ddlEstadoCompromiso->ID);
+			//$this->ddlRevisionCompromiso->SelectedValue = $this->GetSearchMemory($this->PagePath, $this->ddlRevisionCompromiso->ID);
 			$this->txtBusqueda->Text = $this->GetSearchMemory($this->PagePath, $this->txtBusqueda->ID);
 
 			$this->Refresh();
@@ -23,26 +25,32 @@ class Home extends PageBaseSP{
 		$idLocalidad = $this->ddlLocalidad->SelectedValue;
 		$idOrganismo = $this->ddlOrganismo->SelectedValue;
 		$idResponsable = $this->ddlResponsable->SelectedValue;
+		$estadoCompromiso = $this->ddlEstadoCompromiso->SelectedValue;
+		$revisionCompromiso = $this->ddlRevisionCompromiso->SelectedValue;
+
 		$busqueda = $this->txtBusqueda->Text;
 
 		$data = $this->CreateDataSource("CompromisoPeer","CompromisoHome", $idLocalidad, $idOrganismo,
-			$idResponsable, $busqueda);
+			$idResponsable, $estadoCompromiso, $revisionCompromiso, $busqueda);
 
 		$this->dgDatos->DataSource = $data;
 		$this->lblTitulo->Text = "Compromisos (". count($data) . ")";
 		$this->dgDatos->dataBind();
 		$this->setViewState("Data",$data);
 
+		$actualizacion = $this->CreateDataSource("CompromisoPeer","UltimaCreacion", $idLocalidad, $idOrganismo,
+			$idResponsable, $busqueda);
+
+		$this->dgDatos->DataSource = $actualizacion;
+		$this->lblActualizacion->Text = 'Última Actualización: ' . $actualizacion[0]["ultimo"];
+		$actualizacion = $this->CreateDataSource("CompromisoPeer","UltimaRevision",$idLocalidad, $idOrganismo,
+			$idResponsable, $busqueda);
+		$this->lblUltimaRevision->Text = 'Última Revisión: ' . $actualizacion[0]["ultimo"];
 
 	}
 
 	public function LoadDataRelated(){
-		$actualizacion = $this->CreateDataSource("CompromisoPeer","UltimaCreacion");
-		$this->dgDatos->DataSource = $actualizacion;
-		$this->lblActualizacion->Text = 'Última Actualización: ' . $actualizacion[0]["ultimo"];
-		$actualizacion = $this->CreateDataSource("CompromisoPeer","UltimaRevision");
-		$this->lblUltimaRevision->Text = 'Última Revisión: ' . $actualizacion[0]["ultimo"];
-	
+
 		$localidades = $this->CreateDataSource("CompromisoPeer","LocalidadesConCompromisoSelect");
 		$this->ddlLocalidad->DataSource = $localidades;
 		$this->ddlLocalidad->dataBind();
@@ -93,6 +101,8 @@ class Home extends PageBaseSP{
 		$this->SaveSearchMemory($this->PagePath, $this->ddlLocalidad->ID, $this->ddlLocalidad->SelectedValue);
 		$this->SaveSearchMemory($this->PagePath, $this->ddlOrganismo->ID, $this->ddlOrganismo->SelectedValue);
 		$this->SaveSearchMemory($this->PagePath, $this->ddlResponsable->ID, $this->ddlResponsable->SelectedValue);
+		$this->SaveSearchMemory($this->PagePath, $this->ddlEstadoCompromiso->ID, $this->ddlEstadoCompromiso->SelectedValue);
+		$this->SaveSearchMemory($this->PagePath, $this->ddlRevisionCompromiso->ID, $this->ddlRevisionCompromiso->SelectedValue);
 		$this->SaveSearchMemory($this->PagePath, $this->txtBusqueda->ID, $this->txtBusqueda->Text);
 
 		$this->dgDatos->CurrentPageIndex = 0;
@@ -104,11 +114,15 @@ public function btnVerTodos_OnClick($sender, $param)
 		$this->ddlLocalidad->SelectedValue = 
 		$this->ddlOrganismo->SelectedValue = 
 		$this->ddlResponsable->SelectedValue = 0;
+		$this->ddlEstadoCompromiso->SelectedValue = 2;
+		$this->ddlRevisionCompromiso->SelectedValue = 2;
 		$this->txtBusqueda->Text = "";
 
 		$this->SaveSearchMemory($this->PagePath, $this->ddlLocalidad->ID, $this->ddlLocalidad->SelectedValue);
 		$this->SaveSearchMemory($this->PagePath, $this->ddlOrganismo->ID, $this->ddlOrganismo->SelectedValue);
 		$this->SaveSearchMemory($this->PagePath, $this->ddlResponsable->ID, $this->ddlResponsable->SelectedValue);
+		$this->SaveSearchMemory($this->PagePath, $this->ddlEstadoCompromiso->ID, $this->ddlEstadoCompromiso->SelectedValue);
+		$this->SaveSearchMemory($this->PagePath, $this->ddlRevisionCompromiso->ID, $this->ddlRevisionCompromiso->SelectedValue);
 		$this->SaveSearchMemory($this->PagePath, $this->txtBusqueda->ID, $this->txtBusqueda->Text);
 		
 		$this->Refresh();

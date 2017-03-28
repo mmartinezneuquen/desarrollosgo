@@ -15,6 +15,7 @@ class CompromisoRecord extends TActiveRecord
 	public $IdUsuario;
 	public $IdObra;
 	public $Activo;
+	public $Cerrado;
 
 	public static function finder($className=__CLASS__)
 	{

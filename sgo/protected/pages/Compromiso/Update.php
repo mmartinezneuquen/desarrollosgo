@@ -18,9 +18,21 @@ class Update extends PageBaseSP{
 	public function MostrarControlesSoloLectura(){
 		$this->dtpFecha->Enabled = false;
 		$this->ddlLocalidad->Enabled = false;
-		$this->ddlResponsable->Enabled = false;
+		//$this->ddlResponsable->Enabled = false;
 		$this->txtDenominacion->Enabled = false;
 		$this->txtPlazo->Enabled = false;		
+	}
+
+	public function CompromisoCumplido(){
+		$this->ddlResponsable->Enabled = false;
+		$this->txtLatitud->Enabled= false;
+		$this->txtLongitud->Enabled= false;
+		$this->chkCerrado->Checked = true;
+		$this->chkCerrado->Enabled = false;
+		$this->btnAgregarRevision->Visible ="false";
+		$this->btnAceptar->Visible ="false";
+		$this->btnCancelar->Visible ="false";
+		$this->tcEditarRevision->Visible = "false";
 	}
 	
 	public function LoadDataRelated(){		
@@ -49,13 +61,9 @@ class Update extends PageBaseSP{
 			$fecha = explode("-",$compromiso->Fecha);
 			$this->dtpFecha->Text = $fecha[2]."/".$fecha[1]."/".$fecha[0];
 		} 
-
-		//
 		
-		//$usuario = $finder->findByPk($compromiso->$IdUsuario);
-
-		//echo "<pre>";print_r($idUsuario); die();
 		if ($idUsuario == 79){
+			//Los compromiso creados por el usuario con Id 79, son compromisos que se importaron en la etapa inicial
 			$this->lblActualizacion->Text = "Compromiso generado automaticamente en la importación de datos iniciales";		
 		}
 		else
@@ -66,7 +74,6 @@ class Update extends PageBaseSP{
 			$this->lblActualizacion->Text = "Compromiso creado por el usuario " . $usuario->ApellidoNombre;			
 		}
 
-		//$fechaRegistro = explode("-",$compromiso->FechaRegistro);
 		$date=date_create($compromiso->FechaRegistro);
 		
 		$this->lblActualizacionFecha->Text = "Ultima actualizacion del compromiso: " . date_format($date,"d/m/Y");
@@ -76,6 +83,10 @@ class Update extends PageBaseSP{
 		$this->txtPlazo->Text = $compromiso->Plazo;
 		$this->txtLatitud->Text = $compromiso->Latitud;
 		$this->txtLongitud->Text = $compromiso->Longitud;
+
+		if ($compromiso->Cerrado ==1){
+			$this->CompromisoCumplido();					
+		}
 
 		$this->pnlRevision->Visible = true;
 		$this->btnAgregarRevision->NavigateUrl .= "&idCompromiso=".$idCompromiso;
@@ -103,7 +114,7 @@ class Update extends PageBaseSP{
 				$compromiso = $finder->findByPk($id);
 			}
 			else{
-				$compromiso = new CompromisoRecord();
+				$compromiso = new CompromisoRecord();				
 			}
 			
 			if($this->dtpFecha->Text!=""){
@@ -130,7 +141,12 @@ class Update extends PageBaseSP{
 			$compromiso->Latitud = $this->txtLatitud->Text;
 			$compromiso->Longitud = $this->txtLongitud->Text;
 
-
+			if($this->chkCerrado->Checked){
+				$compromiso->Cerrado = True;
+			}
+			else{
+				$compromiso->Cerrado = False;
+			}
 
 			$idUsuario = $this->Session->get("usr_id");
 			$finder = UsuarioRecord::finder();
@@ -149,19 +165,19 @@ class Update extends PageBaseSP{
 		}
 	 }
 
-	public function btnVerTodos_OnClick($sender, $param)
-	{
-		$to = "mauriciodmartinez@gmail.com";
-		//echo "<pre>";print_r($to); die();
-		$subject = "SGO";
-		$txt = "Hello world!";
-		$headers = "From: mauriciodmartinez@gmail.com" . "\r\n" .
-		"CC: mauriciodmartinez@gmail.com";
+	// public function btnVerTodos_OnClick($sender, $param)
+	// {
+	// 	$to = "mauriciodmartinez@gmail.com";
+	// 	//echo "<pre>";print_r($to); die();
+	// 	$subject = "SGO";
+	// 	$txt = "Hello world!";
+	// 	$headers = "From: mauriciodmartinez@gmail.com" . "\r\n" .
+	// 	"CC: mauriciodmartinez@gmail.com";
 
-		mail($to,$subject,$txt,$headers);
+	// 	mail($to,$subject,$txt,$headers);
 		
 
-	}
+	// }
 
 }
 

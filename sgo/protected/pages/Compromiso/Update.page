@@ -138,6 +138,10 @@
 	            AutoTrim="True"
 	       		ToolTip="Ingrese coordenada de longitud de obra"/>
 	       	<br />
+	       	<span class="label">Compromiso Cumplido</span>
+			<com:TActiveCheckBox 
+	       		ID="chkCerrado"
+	       		Checked="false"/>
 	       	<com:TActivePanel 
 				ID="pnlRevision"
 				Visible="false">

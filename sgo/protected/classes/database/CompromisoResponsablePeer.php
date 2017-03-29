@@ -8,6 +8,7 @@ class CompromisoResponsablePeer
 				From compromisoresponsable
 					Inner Join usuario on compromisoresponsable.IdUsuario = usuario.IdUsuario
           			Inner join compromisoorganismo on compromisoorganismo.IdCompromisoOrganismo = compromisoresponsable.IdOrganismo
+          		Where compromisoresponsable.Activo = 1
 				Order by
 					usuario.ApellidoNombre";
 		return $sql;

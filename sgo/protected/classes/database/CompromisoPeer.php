@@ -39,10 +39,10 @@ class CompromisoPeer
 
 		if($revisionCompromiso!="2"){
 				if($revisionCompromiso=="1"){
-				$where .= " and (Select count(idcompromiso) from compromisorevision where compromisorevision.IdCompromiso = compromiso.IdCompromiso) >= $revisionCompromiso";
+				$where .= " and (Select count(idcompromiso) from compromisorevision where compromisorevision.IdCompromiso = compromiso.IdCompromiso) > 0";
 			}
 			else{
-				$where .= " and (Select count(idcompromiso) from compromisorevision where compromisorevision.IdCompromiso = compromiso.IdCompromiso) = $revisionCompromiso";
+				$where .= " and (Select count(idcompromiso) from compromisorevision where compromisorevision.IdCompromiso = compromiso.IdCompromiso) = 0";
 			}			
 		}		
 

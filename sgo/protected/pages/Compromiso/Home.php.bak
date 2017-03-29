@@ -10,8 +10,8 @@ class Home extends PageBaseSP{
 			$this->ddlLocalidad->SelectedValue = $this->GetSearchMemory($this->PagePath, $this->ddlLocalidad->ID);
 			$this->ddlOrganismo->SelectedValue = $this->GetSearchMemory($this->PagePath, $this->ddlOrganismo->ID);
 			$this->ddlResponsable->SelectedValue = $this->GetSearchMemory($this->PagePath, $this->ddlResponsable->ID);
-			$this->ddlEstadoCompromiso->SelectedValue = $this->GetSearchMemory($this->PagePath, $this->ddlEstadoCompromiso->ID);
-			$this->ddlRevisionCompromiso->SelectedValue = $this->GetSearchMemory($this->PagePath, $this->ddlRevisionCompromiso->ID);
+			//$this->ddlEstadoCompromiso->SelectedValue = $this->GetSearchMemory($this->PagePath, $this->ddlEstadoCompromiso->ID);
+			//$this->ddlRevisionCompromiso->SelectedValue = $this->GetSearchMemory($this->PagePath, $this->ddlRevisionCompromiso->ID);
 			$this->txtBusqueda->Text = $this->GetSearchMemory($this->PagePath, $this->txtBusqueda->ID);
 
 			$this->Refresh();
